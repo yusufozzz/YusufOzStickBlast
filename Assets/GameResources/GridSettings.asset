@@ -16,4 +16,4 @@ MonoBehaviour:
   <LinePrefab>k__BackingField: {fileID: 7913037679379510322, guid: 18d7b6eaab9c9744187ead8ce8e12c4c, type: 3}
   <SquarePrefab>k__BackingField: {fileID: 398033788992581729, guid: 5af93ac8c2294504ea2141374db6fc28, type: 3}
   <GridSize>k__BackingField: 6
-  <Spacing>k__BackingField: 3
+  <Spacing>k__BackingField: 1.92

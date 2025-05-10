@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f064aabdd92d941a22c325c235af8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stickPrefab: {fileID: 2422148048616971690, guid: ae0ae1bbd2328624b9e8ed09509df6ff, type: 3}
+  stickPoints: []
 --- !u!61 &822555590452427905
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -89,5 +89,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 6, y: 6}
   m_EdgeRadius: 0

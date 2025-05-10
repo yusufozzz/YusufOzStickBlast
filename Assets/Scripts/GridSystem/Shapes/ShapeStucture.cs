@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace GridSystem.Shapes
 {
     public class ShapeStructure
     {
-        public List<StickTransform> StickTransforms { get; }
+        public List<StickPoints> StickPoints { get; private set; }
         public int Width { get; }
         public int Height { get; }
 
-        public ShapeStructure(List<StickTransform> stickTransforms, int width, int height)
+        public ShapeStructure(List<StickPoints> stickPoints, int width, int height)
         {
-            StickTransforms = stickTransforms;
+            StickPoints = stickPoints;
             Width = width;
             Height = height;
         }
