@@ -5,17 +5,14 @@ namespace GridSystem
 {
     public class Line : MonoBehaviour
     {
-        [SerializeField]
-        private List<Dot> dots = new();
-
         public bool IsOccupied { get; private set; }
-        public IReadOnlyList<Dot> Dots => dots;
-
+        public IReadOnlyList<Dot> Dots => _dots;
+        private readonly List<Dot> _dots = new();
         public void SetDots(Dot a, Dot b)
         {
-            dots.Clear();
-            dots.Add(a);
-            dots.Add(b);
+            _dots.Clear();
+            _dots.Add(a);
+            _dots.Add(b);
         }
 
         public bool TryOccupy()
