@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GridSystem
+namespace GridSystem.Sticks
 {
     public class Stick: MonoBehaviour
     {
