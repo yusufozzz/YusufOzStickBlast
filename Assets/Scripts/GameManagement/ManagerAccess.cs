@@ -6,11 +6,11 @@ namespace GameManagement
     {
         private static readonly Dictionary<ManagerType, ManagerBase> Managers = new();
 
-        public static void SetManagers(Dictionary<ManagerType, ManagerBase> managers)
+        public static void SetManagers(List<ManagerBase> managers)
         {
             foreach (var manager in managers)
             {
-                Managers[manager.Key] = manager.Value;
+                Managers[manager.Type] = manager;
             }
         }
 

@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using YufisUtility;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -11,7 +11,7 @@ namespace GameManagement
     public class GameInstaller : MonoBehaviour
     {
         [SerializeField]
-        private UnitySerializedDictionary<ManagerType, ManagerBase> managers = new();
+        private List<ManagerBase> managers;
 
         private void Awake()
         {
@@ -20,22 +20,23 @@ namespace GameManagement
 
         private void SetUpManagers()
         {
-            foreach (var manager in managers.Values)
+            ManagerAccess.SetManagers(managers);
+            foreach (var manager in managers)
             {
                 manager.SetUp();
             }
-
-            ManagerAccess.SetManagers(managers);
         }
 
 #if UNITY_EDITOR
         [ContextMenu("Create All Managers")]
         private void CreateAllManagers()
         {
-            foreach (Transform child in transform)
+            var children = GetComponentsInChildren<ManagerBase>();
+            for (int i = children.Length - 1; i >= 0; i--)
             {
-                DestroyImmediate(child.gameObject);
+                DestroyImmediate(children[i].gameObject);
             }
+            managers.Clear();
 
             foreach (ManagerType type in Enum.GetValues(typeof(ManagerType)))
             {
@@ -51,10 +52,12 @@ namespace GameManagement
                 {
                     ManagerBase managerComponent = (ManagerBase)managerObject.AddComponent(managerType);
                     managerComponent.SetType_Editor(type);
+                    managers.Add(managerComponent);
                 }
                 else
                 {
-                    Debug.LogError($"Failed to add component for ManagerType.{type}. Class '{targetClassName}' not found or doesn't inherit from ManagerBase.");
+                    Debug.LogError(
+                        $"Failed to add component for ManagerType.{type}. Class '{targetClassName}' not found or doesn't inherit from ManagerBase.");
                 }
             }
 
@@ -63,6 +66,5 @@ namespace GameManagement
             AssetDatabase.SaveAssets();
         }
 #endif
-
     }
 }
