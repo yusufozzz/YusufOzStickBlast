@@ -16,7 +16,6 @@ namespace DeckSystem
         [SerializeField]
         private DeckShapeSpawner deckShapeSpawner;
 
-        private ShapePlacementValidator _shapePlacementValidator;
         public readonly List<Shape> ActiveShapes = new();
 
         private bool _gameEnded;
@@ -25,7 +24,6 @@ namespace DeckSystem
         public override void SetUp()
         {
             base.SetUp();
-            _shapePlacementValidator = new ShapePlacementValidator();
         }
 
         public override void SubscribeEvents()
@@ -96,7 +94,7 @@ namespace DeckSystem
         {
             yield return new WaitForEndOfFrame();
 
-            bool canPlace = ActiveShapes.Any(_shapePlacementValidator.CanShapeBePlacedAnywhere);
+            bool canPlace = ActiveShapes.Any(shape => shape.CanPlaced());
 
             if (!canPlace)
             {

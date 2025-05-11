@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 822555590452427905}
   - component: {fileID: 7093446092648708066}
   - component: {fileID: 8727527256374077221}
+  - component: {fileID: 7055682285350302153}
   m_Layer: 0
   m_Name: Shape
   m_TagString: Untagged
@@ -93,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickPoints: []
   shapeMovement: {fileID: 8727527256374077221}
+  shapePlacementValidator: {fileID: 7055682285350302153}
 --- !u!114 &8727527256374077221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,5 +105,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e1ce7615185431a9faeccf9ce8e5f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7055682285350302153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715741822452102343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0cc4ab0899b6e44910fc21120e90f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

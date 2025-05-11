@@ -108,9 +108,17 @@ namespace GridSystem
             return root;
         }
 
-        public Line[,] GetLineGrid()
+        public void ResetPreview()
         {
-            return _horizontalLines;
+            foreach (var line in _horizontalLines)
+            {
+                line.ResetPreview();
+            }
+
+            foreach (var line in _verticalLines)
+            {
+                line.ResetPreview();
+            }
         }
     }
 }

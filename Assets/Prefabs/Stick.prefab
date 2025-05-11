@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4430356132744684850}
   - component: {fileID: 8928147481824801299}
-  - component: {fileID: 5193732692957290792}
   m_Layer: 0
   m_Name: Stick
   m_TagString: Untagged
@@ -47,19 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a9d92d907f10f4b9afcff31414cecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5193732692957290792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2422148048616971690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87bfee9600ea18f4fbd4da889e0c9fd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visualSprite: {fileID: 9019131709387300089}
+  spriteRenderer: {fileID: 9019131709387300089}
 --- !u!1 &5641666522236077400
 GameObject:
   m_ObjectHideFlags: 0

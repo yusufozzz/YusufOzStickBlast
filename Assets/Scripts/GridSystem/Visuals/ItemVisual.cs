@@ -5,11 +5,20 @@ namespace GridSystem.Visuals
     public class ItemVisual: MonoBehaviour
     {
         [SerializeField]
-        private SpriteRenderer visualSprite;
+        private SpriteRenderer previewSpriteRenderer;
 
-        public void SetPreviewColor(Color color)
+        public bool IsPreviewed => previewSpriteRenderer.enabled;
+
+        public void Preview(Color color)
         {
-            visualSprite.color = color;
+            previewSpriteRenderer.enabled = true;
+            previewSpriteRenderer.color = color;
+        }
+        
+        public void ResetPreview()
+        {
+            previewSpriteRenderer.enabled = false;
+            previewSpriteRenderer.color = Color.white;
         }
     }
 }

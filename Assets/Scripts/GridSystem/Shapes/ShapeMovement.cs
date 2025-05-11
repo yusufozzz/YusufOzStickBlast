@@ -7,6 +7,7 @@ namespace GridSystem.Shapes
         private  Transform _deckTransform;
         private Camera _mainCamera;
         private Shape _shape;
+        private bool _isPlaced;
         
         public void Initialize(Transform deckTransform, Shape shape)
         {
@@ -36,16 +37,17 @@ namespace GridSystem.Shapes
         {
             Vector3 mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
-            mousePosition.y += 3;
+            mousePosition.y += 2;
             transform.position = mousePosition;
         }
 
         private void HandlePlacement()
         {
-            var canBePlaced = _shape.CanPlaced();
+            var canBePlaced = _shape.CanPlaced() && !_isPlaced;
             if (canBePlaced)
             {
                 _shape.Place();
+                _isPlaced = true;
             }
             else
             {
