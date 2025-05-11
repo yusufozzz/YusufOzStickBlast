@@ -2,6 +2,7 @@
 using System.Linq;
 using GridSystem.Sticks;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace GridSystem.Shapes
 {
@@ -13,10 +14,15 @@ namespace GridSystem.Shapes
         public List<Stick> Sticks { get; private set; } = new List<Stick>();
 
         [SerializeField]
+        private SortingGroup sortingGroup;
+
+        [SerializeField]
         private ShapeMovement shapeMovement;
 
         [SerializeField]
         private ShapePlacementValidator shapePlacementValidator;
+
+        public bool IsPlaced { get; private set; }
 
         public void Initialize(Transform deckSlot)
         {
@@ -43,7 +49,14 @@ namespace GridSystem.Shapes
 
         public void Place()
         {
+            IsPlaced = true;
             ShapeEvents.OnShapePlaced?.Invoke(this);
+            shapePlacementValidator.TryPlace();
+        }
+        
+        public void SetSortingOrder(int order)
+        {
+            sortingGroup.sortingOrder = order;
         }
     }
 }

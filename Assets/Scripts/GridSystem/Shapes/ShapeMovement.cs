@@ -7,7 +7,6 @@ namespace GridSystem.Shapes
         private  Transform _deckTransform;
         private Camera _mainCamera;
         private Shape _shape;
-        private bool _isPlaced;
         
         public void Initialize(Transform deckTransform, Shape shape)
         {
@@ -19,8 +18,15 @@ namespace GridSystem.Shapes
 
         private void OnMouseDrag()
         {
+            if (_shape.IsPlaced) return;
             UpdatePosition();
             CheckPlacement();
+            SetSortingOrder(100);
+        }
+
+        private void SetSortingOrder(int i)
+        {
+            _shape.SetSortingOrder(i);
         }
 
         private void CheckPlacement()
@@ -30,6 +36,8 @@ namespace GridSystem.Shapes
 
         private void OnMouseUp()
         {
+            if (_shape.IsPlaced) return;
+            SetSortingOrder(40);
             HandlePlacement();
         }
 
@@ -43,11 +51,10 @@ namespace GridSystem.Shapes
 
         private void HandlePlacement()
         {
-            var canBePlaced = _shape.CanPlaced() && !_isPlaced;
+            var canBePlaced = _shape.CanPlaced();
             if (canBePlaced)
             {
                 _shape.Place();
-                _isPlaced = true;
             }
             else
             {
