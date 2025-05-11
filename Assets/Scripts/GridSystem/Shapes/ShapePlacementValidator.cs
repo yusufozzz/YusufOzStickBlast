@@ -21,12 +21,10 @@ namespace GridSystem.Shapes
             var canBePlaced = _shape.Sticks.All(IsValidPlacement);
             if (canBePlaced)
             {
-                Debug.Log("Can be placed");
                 PreviewArea();
             }
             else
             {
-                Debug.Log("Cannot be placed");
                 ResetPreviewArea();
             }
 

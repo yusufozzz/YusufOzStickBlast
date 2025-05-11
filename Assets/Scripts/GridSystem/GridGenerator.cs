@@ -132,35 +132,41 @@ namespace GridSystem
             if (pts == null || !pts.Any())
                 return false;
 
-            // Convert stick float positions to integer grid offsets
+            // Convert float positions to integer grid offsets
             var pointData = pts.Select(p => new
             {
                 p.IsVertical,
-                Pos = Vector2Int.RoundToInt(p.Position)
+                Pos = new Vector2Int(
+                    Mathf.RoundToInt(p.Position.x),
+                    Mathf.RoundToInt(p.Position.y))
             }).ToList();
 
+            // Determine shape local bounds
             int minX = pointData.Min(d => d.Pos.x);
             int minY = pointData.Min(d => d.Pos.y);
             int maxX = pointData.Max(d => d.Pos.x);
             int maxY = pointData.Max(d => d.Pos.y);
 
-            int horW = _horizontalLines.GetLength(0);
-            int horH = _horizontalLines.GetLength(1);
             int vertW = _verticalLines.GetLength(0);
             int vertH = _verticalLines.GetLength(1);
+            int horW  = _horizontalLines.GetLength(0);
+            int horH  = _horizontalLines.GetLength(1);
 
-            int shapeW = maxX - minX + 1;
-            int shapeH = maxY - minY + 1;
+            // Calculate offset search range
+            int xStart = -minX;
+            int xEnd   = Mathf.Max(vertW - 1 - maxX, horW - 1 - maxX);
+            int yStart = -minY;
+            int yEnd   = Mathf.Max(vertH - 1 - maxY, horH - 1 - maxY);
 
-            for (int yOff = 0; yOff <= vertH - shapeH; yOff++)
+            for (int yOff = yStart; yOff <= yEnd; yOff++)
             {
-                for (int xOff = 0; xOff <= vertW - shapeW; xOff++)
+                for (int xOff = xStart; xOff <= xEnd; xOff++)
                 {
                     bool ok = true;
                     foreach (var d in pointData)
                     {
-                        int gx = xOff + (d.Pos.x - minX);
-                        int gy = yOff + (d.Pos.y - minY);
+                        int gx = xOff + d.Pos.x;
+                        int gy = yOff + d.Pos.y;
                         if (d.IsVertical)
                         {
                             if (gx < 0 || gx >= vertW || gy < 0 || gy >= vertH || _verticalLines[gx, gy].IsOccupied)

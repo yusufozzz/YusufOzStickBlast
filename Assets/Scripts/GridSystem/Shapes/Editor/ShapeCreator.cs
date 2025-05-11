@@ -17,7 +17,7 @@ namespace GridSystem.Shapes.Editor
         private GameObject _shapePrefab;
         private GameObject _stickPrefab;
 
-        private float _spacing = 1.288f;
+        private float _spacing = 0.96f;
         private List<GameObject> _spawnedSticks;
 
         [MenuItem("Tools/Shape Creator")]

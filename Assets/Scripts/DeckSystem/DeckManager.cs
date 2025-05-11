@@ -41,8 +41,9 @@ namespace DeckSystem
 
         public void SpawnDeck()
         {
+            Debug.Log("Trying Spawning deck...");
             if (_gameEnded) return;
-
+            Debug.Log("Spawning deck...");
             ClearDeck();
 
             var shapes = deckShapeSpawner.GenerateDeck(deckSlots.Length);

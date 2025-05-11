@@ -724,8 +724,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapes:
-  - {fileID: 8838125793648319692, guid: bb597fd48f2fe6640b7102cbe6e0e756, type: 3}
-  - {fileID: 2327462853284975039, guid: ccf324735cb340d43b7fa68f005eec49, type: 3}
   - {fileID: 6673974537658833643, guid: e24e0bcfebe5ede4a85be4ae7ae51774, type: 3}
   - {fileID: 3848827543191540395, guid: dcb08e8079b259e439bb6c5ac90974ae, type: 3}
   - {fileID: 3370963635695334385, guid: fd7f193f3ee722c4c9f7f0559b72443b, type: 3}
