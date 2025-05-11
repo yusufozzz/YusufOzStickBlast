@@ -20,6 +20,7 @@ namespace DeckSystem
 
         private bool _gameEnded;
         private Coroutine _checkGameLostRoutine;
+        private GridManager GridManager => ManagerType.Grid.GetManager<GridManager>();
 
         public override void SetUp()
         {
@@ -93,8 +94,8 @@ namespace DeckSystem
         private IEnumerator CheckGameLostRoutine()
         {
             yield return new WaitForEndOfFrame();
-
-            bool canPlace = ActiveShapes.Any(shape => shape.CanPlaced());
+            Debug.Log("Checking if game is lost...");
+            bool canPlace = ActiveShapes.Any(shape => GridManager.GridGenerator.CanShapeBePlaced(shape));
 
             if (!canPlace)
             {

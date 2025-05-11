@@ -7,7 +7,7 @@ namespace GridSystem
 {
     public class Line : MonoBehaviour
     {
-        public bool IsOccupied  => _stick != null;
+        public bool IsOccupied => _stick != null;
         private readonly List<Dot> _dots = new();
         private Stick _stick;
         private ItemVisual _itemVisual;
@@ -23,6 +23,7 @@ namespace GridSystem
         {
             _stick = stick;
             SetColor(stick.GetColor());
+            Debug.Log($"Line occupied by {stick.name}");
         }
 
         private void SetColor(Color getColor)

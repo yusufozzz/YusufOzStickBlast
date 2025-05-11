@@ -10,6 +10,7 @@ namespace GridSystem.Shapes
     {
         [SerializeField]
         private List<StickPoints> stickPoints = new List<StickPoints>();
+        public IReadOnlyList<StickPoints> StickPoints => stickPoints;
 
         public List<Stick> Sticks { get; private set; } = new List<Stick>();
 

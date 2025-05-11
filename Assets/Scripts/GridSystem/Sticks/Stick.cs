@@ -9,6 +9,7 @@ namespace GridSystem.Sticks
 
         public void Place(Line line)
         {
+            transform.SetParent(line.transform);
             transform.position = line.transform.position;
             SetColor(GetColor());
         }

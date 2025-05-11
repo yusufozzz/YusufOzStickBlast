@@ -24,14 +24,12 @@ namespace GridSystem.Visuals
             previewSpriteRenderer.enabled = true;
             color.a = 0.5f;
             previewSpriteRenderer.color = color;
-            Debug.Log($"Preview: {previewSpriteRenderer.color}");
         }
         
         public void ResetPreview()
         {
             previewSpriteRenderer.enabled = false;
             previewSpriteRenderer.color = _defaultColor;
-            Debug.Log($"ResetPreview: {previewSpriteRenderer.color}");
         }
         
         public void SetColor(Color color)
