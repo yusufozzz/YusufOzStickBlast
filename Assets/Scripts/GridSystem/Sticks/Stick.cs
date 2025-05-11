@@ -10,7 +10,7 @@ namespace GridSystem.Sticks
         public void Place(Line line)
         {
             transform.position = line.transform.position;
-            SetColor(Color.green);
+            SetColor(GetColor());
         }
         
         public Color GetColor()

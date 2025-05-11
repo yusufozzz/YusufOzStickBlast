@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace GridSystem.Visuals
 {
@@ -11,17 +12,26 @@ namespace GridSystem.Visuals
         private SpriteRenderer previewSpriteRenderer;
 
         public bool IsPreviewed => previewSpriteRenderer.enabled;
+        private Color _defaultColor;
+
+        private void Awake()
+        {
+            _defaultColor = mainSpriteRenderer.color;
+        }
 
         public void Preview(Color color)
         {
             previewSpriteRenderer.enabled = true;
+            color.a = 0.5f;
             previewSpriteRenderer.color = color;
+            Debug.Log($"Preview: {previewSpriteRenderer.color}");
         }
         
         public void ResetPreview()
         {
             previewSpriteRenderer.enabled = false;
-            previewSpriteRenderer.color = Color.white;
+            previewSpriteRenderer.color = _defaultColor;
+            Debug.Log($"ResetPreview: {previewSpriteRenderer.color}");
         }
         
         public void SetColor(Color color)
