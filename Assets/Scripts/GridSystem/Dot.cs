@@ -27,5 +27,10 @@ namespace GridSystem
             if (!_itemVisual.IsPreviewed) return;
             _itemVisual.ResetPreview();
         }
+
+        public void SetColor(Color color)
+        {
+            _itemVisual.SetColor(color);
+        }
     }
 }

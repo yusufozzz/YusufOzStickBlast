@@ -5,6 +5,9 @@ namespace GridSystem.Visuals
     public class ItemVisual: MonoBehaviour
     {
         [SerializeField]
+        private SpriteRenderer mainSpriteRenderer;
+        
+        [SerializeField]
         private SpriteRenderer previewSpriteRenderer;
 
         public bool IsPreviewed => previewSpriteRenderer.enabled;
@@ -19,6 +22,11 @@ namespace GridSystem.Visuals
         {
             previewSpriteRenderer.enabled = false;
             previewSpriteRenderer.color = Color.white;
+        }
+        
+        public void SetColor(Color color)
+        {
+            mainSpriteRenderer.color = color;
         }
     }
 }

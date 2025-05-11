@@ -22,8 +22,18 @@ namespace GridSystem
         public void SetOccupied(Stick stick)
         {
             _stick = stick;
+            SetColor(stick.GetColor());
         }
-        
+
+        private void SetColor(Color getColor)
+        {
+            _itemVisual.SetColor(getColor);
+            foreach (var dot in _dots)
+            {
+                dot.SetColor(getColor);
+            }
+        }
+
         public void Preview(Color color)
         {
             if (_itemVisual.IsPreviewed) return;

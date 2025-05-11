@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87bfee9600ea18f4fbd4da889e0c9fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainSpriteRenderer: {fileID: 9019131709387300089}
   previewSpriteRenderer: {fileID: 6382375432525583170}
 --- !u!61 &6574177672351984392
 BoxCollider2D:
