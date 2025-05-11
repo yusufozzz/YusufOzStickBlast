@@ -7,9 +7,7 @@
         Audio,
         UI,
         Level,
-        Grid
-        
-        
-        
+        Grid,
+        Deck
     }
 }

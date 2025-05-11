@@ -10,5 +10,10 @@ namespace GridSystem
         {
             
         }
+
+        public void CheckLines()
+        {
+            
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using GameManagement;
+﻿using DeckSystem;
+using GameManagement;
 using UnityEngine;
 
 namespace GridSystem
@@ -14,10 +15,12 @@ namespace GridSystem
         [field: SerializeField]
         public GridChecker GridChecker { get; private set; }
 
+        private DeckManager DeckManager => ManagerType.Deck.GetManager<DeckManager>();
         public override void SetUp()
         {
             base.SetUp();
             GridGenerator.Generate(GridSettings);
+            DeckManager.SpawnDeck();
         }
     }
 }

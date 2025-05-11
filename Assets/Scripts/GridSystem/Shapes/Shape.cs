@@ -12,5 +12,16 @@ namespace GridSystem.Shapes
         {
             stickPoints = points;
         }
+
+        public void ClearSticks()
+        {
+            
+        }
+
+        public void Initialize(Transform deckSlot)
+        {
+            transform.position = deckSlot.position;
+            transform.rotation = deckSlot.rotation;
+        }
     }
 }

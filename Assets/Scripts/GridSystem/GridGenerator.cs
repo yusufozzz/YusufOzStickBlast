@@ -107,5 +107,10 @@ namespace GridSystem
             root.SetParent(transform);
             return root;
         }
+
+        public Line[,] GetLineGrid()
+        {
+            return _horizontalLines;
+        }
     }
 }
