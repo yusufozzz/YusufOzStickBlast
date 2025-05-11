@@ -96,7 +96,7 @@ namespace GridSystem.Shapes.Editor
                         if (usedHorizontalCenters.Contains(center)) continue;
 
                         usedHorizontalCenters.Add(center);
-                        Vector2 worldPos = new Vector2(center.x * _spacing, center.y * _spacing);
+                        Vector2 worldPos = GetGridAlignedPosition(center.x, center.y);
                         stickPoints.Add(new StickPoints(worldPos, false));
                     }
                 }
@@ -112,7 +112,7 @@ namespace GridSystem.Shapes.Editor
                         if (usedVerticalCenters.Contains(center)) continue;
 
                         usedVerticalCenters.Add(center);
-                        Vector2 worldPos = new Vector2(center.x * _spacing, center.y * _spacing);
+                        Vector2 worldPos = GetGridAlignedPosition(center.x, center.y);
                         stickPoints.Add(new StickPoints(worldPos, true));
                     }
                 }
@@ -136,8 +136,32 @@ namespace GridSystem.Shapes.Editor
             Selection.activeGameObject = shapeObj;
         }
 
-
-
+        private Vector2 GetGridAlignedPosition(int x, int y)
+        {
+            // Convert grid coordinates to aligned positions (-spacing, 0, or spacing)
+            float posX = x == 0 ? 0 : (x < 0 ? -_spacing : _spacing);
+            float posY = y == 0 ? 0 : (y < 0 ? -_spacing : _spacing);
+            
+            // For coordinates greater than 1 or less than -1
+            posX = x * _spacing;
+            posY = y * _spacing;
+            
+            // Ensure values are exactly -spacing, 0, or spacing by rounding to these values
+            posX = GetAlignedValue(posX);
+            posY = GetAlignedValue(posY);
+            
+            return new Vector2(posX, posY);
+        }
+        
+        private float GetAlignedValue(float value)
+        {
+            if (Mathf.Approximately(value, 0f))
+                return 0f;
+                
+            // Determine number of spacing units
+            int units = Mathf.RoundToInt(value / _spacing);
+            return units * _spacing;
+        }
 
         private void BuildFromStructure(Shape shape, ShapeStructure structure, float spacing)
         {
@@ -146,12 +170,16 @@ namespace GridSystem.Shapes.Editor
 
             foreach (var stick in structure.StickPoints)
             {
-                Vector3 pos = new Vector3(stick.Position.x, stick.Position.y, 0f);
+                Vector2 alignedPos = new Vector2(
+                    GetAlignedValue(stick.Position.x),
+                    GetAlignedValue(stick.Position.y)
+                );
+                
+                Vector3 pos = new Vector3(alignedPos.x, alignedPos.y, 0f);
                 GameObject obj = Instantiate(_stickPrefab, shape.transform);
                 obj.transform.localPosition = pos;
                 obj.transform.localRotation = Quaternion.Euler(0f, 0f, stick.IsVertical ? 0f : 90f);
                 _spawnedSticks.Add(obj);
-                stickPointsList.Add(new StickPoints(obj.transform.localPosition, stick.IsVertical));
             }
 
             Bounds totalBounds = CalculatePreciseBounds(shape);
@@ -167,7 +195,12 @@ namespace GridSystem.Shapes.Editor
                     isVertical = Mathf.Approximately(stickObj.transform.localEulerAngles.z, 0f);
 
                 Vector2 localPos = stickObj.transform.localPosition;
-                stickPointsList.Add(new StickPoints(localPos, isVertical));
+                // Make sure the position is grid-aligned even after centering
+                Vector2 alignedPos = new Vector2(
+                    GetAlignedValue(localPos.x),
+                    GetAlignedValue(localPos.y)
+                );
+                stickPointsList.Add(new StickPoints(alignedPos, isVertical));
             }
 
             shape.SetStickPoints(stickPointsList);
@@ -175,8 +208,25 @@ namespace GridSystem.Shapes.Editor
 
         private void CenterPivot(Shape shape, Vector3 pivotOffset)
         {
+            // Adjust pivot offset to grid alignment
+            Vector3 alignedOffset = new Vector3(
+                GetAlignedValue(pivotOffset.x),
+                GetAlignedValue(pivotOffset.y),
+                0f
+            );
+            
             foreach (var stick in _spawnedSticks)
-                stick.transform.localPosition -= pivotOffset;
+            {
+                stick.transform.localPosition -= alignedOffset;
+                
+                // Ensure final position is grid-aligned
+                Vector3 pos = stick.transform.localPosition;
+                stick.transform.localPosition = new Vector3(
+                    GetAlignedValue(pos.x),
+                    GetAlignedValue(pos.y),
+                    0f
+                );
+            }
         }
 
         private Bounds CalculatePreciseBounds(Shape shape)
