@@ -654,6 +654,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1160367091}
   - component: {fileID: 1160367092}
+  - component: {fileID: 1160367094}
+  - component: {fileID: 1160367093}
   m_Layer: 0
   m_Name: DeckManager
   m_TagString: Untagged
@@ -696,6 +698,38 @@ MonoBehaviour:
   - {fileID: 546726739}
   - {fileID: 1971231076}
   - {fileID: 1281207240}
+  deckShapeSpawner: {fileID: 1160367094}
+--- !u!114 &1160367093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160367090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0cc4ab0899b6e44910fc21120e90f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1160367094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160367090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f7710a3a882bc49842b2361e4998f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shapes:
+  - {fileID: 8838125793648319692, guid: bb597fd48f2fe6640b7102cbe6e0e756, type: 3}
+  - {fileID: 2327462853284975039, guid: ccf324735cb340d43b7fa68f005eec49, type: 3}
+  - {fileID: 6673974537658833643, guid: e24e0bcfebe5ede4a85be4ae7ae51774, type: 3}
+  - {fileID: 3848827543191540395, guid: dcb08e8079b259e439bb6c5ac90974ae, type: 3}
+  - {fileID: 3370963635695334385, guid: fd7f193f3ee722c4c9f7f0559b72443b, type: 3}
+  - {fileID: 1477868789674243735, guid: 2091765b1a09b5148b2ecb746a1ab085, type: 3}
 --- !u!1 &1281207239
 GameObject:
   m_ObjectHideFlags: 0

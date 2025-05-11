@@ -13,13 +13,20 @@ namespace DeckSystem
         [SerializeField]
         private Transform[] deckSlots;
 
+        [SerializeField]
+        private DeckShapeSpawner deckShapeSpawner;
+
+        private ShapePlacementValidator _shapePlacementValidator;
         public readonly List<Shape> ActiveShapes = new();
 
         private bool _gameEnded;
         private Coroutine _checkGameLostRoutine;
 
-        private DeckShapeSpawner _deckShapeSpawner;
-        private ShapePlacementValidator _shapePlacementValidator;
+        public override void SetUp()
+        {
+            base.SetUp();
+            _shapePlacementValidator = new ShapePlacementValidator();
+        }
 
         public override void SubscribeEvents()
         {
@@ -39,7 +46,7 @@ namespace DeckSystem
 
             ClearDeck();
 
-            var shapes = _deckShapeSpawner.GenerateDeck(deckSlots.Length);
+            var shapes = deckShapeSpawner.GenerateDeck(deckSlots.Length);
 
             for (int i = 0; i < deckSlots.Length; i++)
             {
