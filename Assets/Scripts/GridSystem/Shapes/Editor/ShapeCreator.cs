@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
+using System.IO;
 using GridSystem.Sticks;
 using UnityEditor;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace GridSystem.Shapes.Editor
     {
         private const int GridSize = 3;
         private const float CellSize = 30f;
+        private const string ShapeSavePath = "Assets/Prefabs/Shapes";
 
         private readonly bool[,] _selectedDots = new bool[GridSize, GridSize];
 
@@ -19,6 +21,7 @@ namespace GridSystem.Shapes.Editor
 
         private float _spacing = 0.96f;
         private List<GameObject> _spawnedSticks;
+        private string _shapeName = "NewShape";
 
         [MenuItem("Tools/Shape Creator")]
         public static void ShowWindow()
@@ -30,6 +33,7 @@ namespace GridSystem.Shapes.Editor
         {
             GUILayout.Label("5x5 Dot Grid", EditorStyles.boldLabel);
             _spacing = EditorGUILayout.FloatField("Spacing", _spacing);
+            _shapeName = EditorGUILayout.TextField("Shape Name", _shapeName);
             DrawDotGrid();
             GUILayout.Space(10);
 
@@ -80,6 +84,15 @@ namespace GridSystem.Shapes.Editor
             }
         }
 
+        private void EnsureDirectoryExists(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+                AssetDatabase.Refresh();
+            }
+        }
+
         private void GenerateShape()
         {
             List<StickPoints> stickPoints = new();
@@ -126,14 +139,31 @@ namespace GridSystem.Shapes.Editor
 
             var structure = new ShapeStructure(stickPoints, GridSize, GridSize);
             GameObject shapeObj = (GameObject)PrefabUtility.InstantiatePrefab(_shapePrefab);
-            shapeObj.name = $"Shape_{DateTime.Now:HHmmss}";
+            string timestamp = DateTime.Now.ToString("HHmmss");
+            string finalShapeName = string.IsNullOrEmpty(_shapeName) ? $"Shape_{timestamp}" : $"{_shapeName}_{timestamp}";
+            shapeObj.name = finalShapeName;
             shapeObj.transform.position = Vector3.zero;
 
             var shape = shapeObj.GetComponent<Shape>();
             BuildFromStructure(shape, structure, _spacing);
-
-            Undo.RegisterCreatedObjectUndo(shapeObj, "Create Shape");
-            Selection.activeGameObject = shapeObj;
+            
+            // Create the prefab variant
+            EnsureDirectoryExists(ShapeSavePath);
+            string variantPath = $"{ShapeSavePath}/{finalShapeName}.prefab";
+            
+            GameObject prefabVariant = PrefabUtility.SaveAsPrefabAsset(shapeObj, variantPath);
+            if (prefabVariant != null)
+            {
+                Debug.Log($"Shape prefab variant saved to: {variantPath}");
+                DestroyImmediate(shapeObj); // Destroy the temporary object
+                Selection.activeObject = prefabVariant; // Select the new prefab in the Project window
+            }
+            else
+            {
+                Debug.LogError("Failed to save shape prefab variant!");
+                Undo.RegisterCreatedObjectUndo(shapeObj, "Create Shape");
+                Selection.activeGameObject = shapeObj;
+            }
         }
 
         private Vector2 GetGridAlignedPosition(int x, int y)
@@ -176,7 +206,8 @@ namespace GridSystem.Shapes.Editor
                 );
                 
                 Vector3 pos = new Vector3(alignedPos.x, alignedPos.y, 0f);
-                GameObject obj = Instantiate(_stickPrefab, shape.transform);
+                // Instantiate using PrefabUtility to maintain prefab connection
+                GameObject obj = (GameObject)PrefabUtility.InstantiatePrefab(_stickPrefab, shape.transform);
                 obj.transform.localPosition = pos;
                 obj.transform.localRotation = Quaternion.Euler(0f, 0f, stick.IsVertical ? 0f : 90f);
                 _spawnedSticks.Add(obj);

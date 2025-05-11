@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using GameManagement;
-using GridSystem.Sticks;
+﻿using GameManagement;
 using GridSystem.Shapes;
 using UnityEngine;
 
@@ -12,11 +9,7 @@ namespace GridSystem
         private Dot[,] _dots;
         private Line[,] _horizontalLines;
         private Line[,] _verticalLines;
-        private List<Square> _squares;
 
-        /// <summary>
-        /// Generates dots, lines, and squares based on the given settings.
-        /// </summary>
         public void Generate(GridSettingsSo settings)
         {
             int size = settings.GridSize;
@@ -26,7 +19,6 @@ namespace GridSystem
             _dots = new Dot[size, size];
             _horizontalLines = new Line[size - 1, size];
             _verticalLines = new Line[size, size - 1];
-            _squares = new List<Square>();
 
             var dotRoot = CreateRoot("Dots");
             var lineRoot = CreateRoot("Lines");
@@ -40,6 +32,7 @@ namespace GridSystem
         private void GenerateDots(GridSettingsSo settings, int size, float spacing, float offset, Transform parent)
         {
             #region Dots
+
             for (int y = 0; y < size; y++)
             {
                 for (int x = 0; x < size; x++)
@@ -51,29 +44,35 @@ namespace GridSystem
                     _dots[x, y] = dot;
                 }
             }
+
             #endregion
         }
 
         private void GenerateLines(GridSettingsSo settings, int size, Transform parent)
         {
             #region Lines
+
             for (int y = 0; y < size; y++)
             {
                 for (int x = 0; x < size; x++)
                 {
                     if (x < size - 1)
-                        _horizontalLines[x, y] = InstantiateLine(settings.LinePrefab, _dots[x, y], _dots[x + 1, y], parent, true);
+                        _horizontalLines[x, y] = InstantiateLine(settings.LinePrefab, _dots[x, y], _dots[x + 1, y],
+                            parent, true);
 
                     if (y < size - 1)
-                        _verticalLines[x, y] = InstantiateLine(settings.LinePrefab, _dots[x, y], _dots[x, y + 1], parent, false);
+                        _verticalLines[x, y] = InstantiateLine(settings.LinePrefab, _dots[x, y], _dots[x, y + 1],
+                            parent, false);
                 }
             }
+
             #endregion
         }
 
         private void GenerateSquares(GridSettingsSo settings, Transform parent)
         {
             #region Squares
+
             int count = settings.GridSize - 1;
             for (int y = 0; y < count; y++)
             {
@@ -91,10 +90,10 @@ namespace GridSystem
                     var square = Instantiate(settings.SquarePrefab, center, Quaternion.identity, parent);
                     square.name = $"Square_{x}_{y}";
                     square.SetLines(lines);
-                    _squares.Add(square);
                     ManagerType.Grid.GetManager<GridManager>().GridChecker.Register(square);
                 }
             }
+
             #endregion
         }
 
@@ -110,9 +109,6 @@ namespace GridSystem
             return line;
         }
 
-        /// <summary>
-        /// Resets all line previews to default state.
-        /// </summary>
         public void ResetPreview()
         {
             foreach (var line in _horizontalLines)
@@ -123,75 +119,12 @@ namespace GridSystem
         }
 
         #region Placement Check
-        /// <summary>
-        /// Determines if the given shape can be placed anywhere on the grid without overlapping occupied lines.
-        /// </summary>
+
         public bool CanShapeBePlaced(Shape shape)
         {
-            var pts = shape.StickPoints;
-            if (pts == null || !pts.Any())
-                return false;
-
-            // Convert float positions to integer grid offsets
-            var pointData = pts.Select(p => new
-            {
-                p.IsVertical,
-                Pos = new Vector2Int(
-                    Mathf.RoundToInt(p.Position.x),
-                    Mathf.RoundToInt(p.Position.y))
-            }).ToList();
-
-            // Determine shape local bounds
-            int minX = pointData.Min(d => d.Pos.x);
-            int minY = pointData.Min(d => d.Pos.y);
-            int maxX = pointData.Max(d => d.Pos.x);
-            int maxY = pointData.Max(d => d.Pos.y);
-
-            int vertW = _verticalLines.GetLength(0);
-            int vertH = _verticalLines.GetLength(1);
-            int horW  = _horizontalLines.GetLength(0);
-            int horH  = _horizontalLines.GetLength(1);
-
-            // Calculate offset search range
-            int xStart = -minX;
-            int xEnd   = Mathf.Max(vertW - 1 - maxX, horW - 1 - maxX);
-            int yStart = -minY;
-            int yEnd   = Mathf.Max(vertH - 1 - maxY, horH - 1 - maxY);
-
-            for (int yOff = yStart; yOff <= yEnd; yOff++)
-            {
-                for (int xOff = xStart; xOff <= xEnd; xOff++)
-                {
-                    bool ok = true;
-                    foreach (var d in pointData)
-                    {
-                        int gx = xOff + d.Pos.x;
-                        int gy = yOff + d.Pos.y;
-                        if (d.IsVertical)
-                        {
-                            if (gx < 0 || gx >= vertW || gy < 0 || gy >= vertH || _verticalLines[gx, gy].IsOccupied)
-                            {
-                                ok = false;
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            if (gx < 0 || gx >= horW || gy < 0 || gy >= horH || _horizontalLines[gx, gy].IsOccupied)
-                            {
-                                ok = false;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (ok)
-                        return true;
-                }
-            }
-
-            return false;
+            throw new System.NotImplementedException();
         }
+
         #endregion
 
         private Transform CreateRoot(string name)
