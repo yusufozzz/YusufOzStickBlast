@@ -8,6 +8,9 @@ namespace GridSystem.Shapes
         [SerializeField]
         private List<StickPoints> stickPoints = new List<StickPoints>();
 
+        [SerializeField]
+        private ShapeMovement shapeMovement;
+
         public void SetStickPoints(List<StickPoints> points)
         {
             stickPoints = points;
@@ -20,8 +23,20 @@ namespace GridSystem.Shapes
 
         public void Initialize(Transform deckSlot)
         {
-            transform.position = deckSlot.position;
-            transform.rotation = deckSlot.rotation;
+            transform.SetPositionAndRotation(deckSlot.position, deckSlot.rotation);
+            shapeMovement.Initialize(deckSlot, this);
+        }
+
+        public bool CanPlaced()
+        {
+            // Check if the shape can be placed in the current position
+            // This is a placeholder implementation
+            return false;
+        }
+
+        public void Place()
+        {
+            ShapeEvents.OnShapePlaced?.Invoke(this);
         }
     }
 }
