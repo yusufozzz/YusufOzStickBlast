@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameManagement;
+using GridSystem.Dots;
 using GridSystem.Lines;
 using UnityEngine;
 

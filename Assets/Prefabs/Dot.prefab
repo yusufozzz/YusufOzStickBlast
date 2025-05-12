@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5711403888334882441}
   - component: {fileID: 8073233590400208966}
   - component: {fileID: 1885776067213775332}
+  - component: {fileID: 158424623519303726}
   m_Layer: 0
   m_Name: Dot
   m_TagString: Untagged
@@ -62,6 +63,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainSpriteRenderer: {fileID: 7633978031055230304}
   previewSpriteRenderer: {fileID: 5820541883573005742}
+--- !u!114 &158424623519303726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671951820964027122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc69d6e199d427cad08e39fb319d0d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textColor: {r: 0, g: 1, b: 0, a: 1}
+  fontSize: 16
+  textOffset: {x: 0, y: 0.15, z: 0}
+  showOnlyWhenOccupied: 1
 --- !u!1 &3491582825410007204
 GameObject:
   m_ObjectHideFlags: 0

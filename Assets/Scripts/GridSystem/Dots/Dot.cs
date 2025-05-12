@@ -3,12 +3,12 @@ using GridSystem.Lines;
 using GridSystem.Visuals;
 using UnityEngine;
 
-namespace GridSystem
+namespace GridSystem.Dots
 {
     public class Dot : MonoBehaviour
     {
         private ItemVisual _itemVisual;
-        private readonly List<Line> _lines = new();
+        public List<Line> Lines { get; private set; } = new();
 
         public void SetUp()
         {
@@ -34,12 +34,12 @@ namespace GridSystem
 
         public void SetLine(Line line)
         {
-            _lines.Add(line);
+            Lines.Add(line);
         }
         
         public bool CheckIfThereIsOccupiedLine()
         {
-            foreach (var line in _lines)
+            foreach (var line in Lines)
             {
                 if (line.IsOccupied)
                 {

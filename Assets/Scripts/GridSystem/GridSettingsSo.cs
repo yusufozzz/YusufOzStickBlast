@@ -1,4 +1,5 @@
-﻿using GridSystem.Lines;
+﻿using GridSystem.Dots;
+using GridSystem.Lines;
 using UnityEngine;
 
 namespace GridSystem

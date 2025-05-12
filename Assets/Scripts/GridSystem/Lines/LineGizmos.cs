@@ -10,9 +10,6 @@ namespace GridSystem.Lines
         
         [SerializeField]
         private Color textColor = Color.blue;
-        
-        [SerializeField] 
-        private int fontSize = 20;
    
         private void OnEnable()
         {
@@ -28,23 +25,20 @@ namespace GridSystem.Lines
             if (_line == null) return;
             
             int memberCount = _line.MemberOfCompletedSquares.Count;
-            if (memberCount > 0)
-            {
-                Gizmos.color = textColor;
+            Gizmos.color = textColor;
                 
-                // Position the text directly on the line
-                Vector3 textPosition = transform.position;
+            // Position the text directly on the line
+            Vector3 textPosition = transform.position;
                 
-                // Create a style for the text
-                GUIStyle style = new GUIStyle();
-                style.normal.textColor = textColor;
-                style.fontSize = fontSize;
-                style.fontStyle = FontStyle.Bold;
-                style.alignment = TextAnchor.MiddleCenter;
+            // Create a style for the text
+            GUIStyle style = new GUIStyle();
+            style.normal.textColor = textColor;
+            style.fontSize = 20;
+            style.fontStyle = FontStyle.Bold;
+            style.alignment = TextAnchor.MiddleCenter;
                 
-                // Draw the text showing the count
-                Handles.Label(textPosition, memberCount.ToString(), style);
-            }
+            // Draw the text showing the count
+            Handles.Label(textPosition, memberCount.ToString(), style);
         }
     }
 }
