@@ -56,8 +56,6 @@ namespace GridSystem
 
         public void Clear()
         {
-            Debug.Log($"Clearing square {gameObject.name}, completed: {_isCompleted}");
-            
             _isCompleted = false;
             _scaleTween?.Kill();
             foreach (var line in _lines)

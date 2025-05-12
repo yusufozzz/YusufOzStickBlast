@@ -4908,4 +4908,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
-  particleSystem: {fileID: 5889569410869793492}
+  system: {fileID: 5889569410869793492}

@@ -9,13 +9,13 @@ namespace ParticleSystem
         public ParticleType Type { get; private set; }
 
         [SerializeField]
-        private UnityEngine.ParticleSystem particleSystem;
+        private UnityEngine.ParticleSystem system;
         
         private Action _onDisable;
 
         public void Init(Action onDisable)
         {
-            particleSystem.Play();
+            system.Play();
             if (_onDisable == null)
                 _onDisable = onDisable;
         }
