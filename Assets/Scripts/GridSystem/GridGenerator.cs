@@ -7,8 +7,8 @@ namespace GridSystem
     public class GridGenerator : MonoBehaviour
     {
         private Dot[,] _dots;
-        private Line[,] _horizontalLines;
-        private Line[,] _verticalLines;
+        public Line[,] HorizontalLines { get; private set; }
+        public Line[,] VerticalLines { get; private set; }
         private List<Square> _squares = new();
 
         public void Generate(GridSettingsSo settings)
@@ -18,8 +18,8 @@ namespace GridSystem
             float offset = (size - 1) * spacing * 0.5f;
 
             _dots = new Dot[size, size];
-            _horizontalLines = new Line[size - 1, size];
-            _verticalLines = new Line[size, size - 1];
+            HorizontalLines = new Line[size - 1, size];
+            VerticalLines = new Line[size, size - 1];
 
             var dotRoot = CreateRoot("Dots");
             var lineRoot = CreateRoot("Lines");
@@ -28,7 +28,6 @@ namespace GridSystem
             GenerateDots(settings, size, spacing, offset, dotRoot);
             GenerateLines(settings, size, lineRoot);
             GenerateSquares(settings, squareRoot);
-            GetComponent<GridPlacement>().Initialize(_horizontalLines, _verticalLines);
         }
 
         private void GenerateDots(GridSettingsSo settings, int size, float spacing, float offset, Transform parent)
@@ -58,11 +57,11 @@ namespace GridSystem
                 for (int x = 0; x < size; x++)
                 {
                     if (x < size - 1)
-                        _horizontalLines[x, y] = InstantiateLine(settings.LinePrefab, _dots[x, y], _dots[x + 1, y],
+                        HorizontalLines[x, y] = InstantiateLine(settings.LinePrefab, _dots[x, y], _dots[x + 1, y],
                             parent, true);
 
                     if (y < size - 1)
-                        _verticalLines[x, y] = InstantiateLine(settings.LinePrefab, _dots[x, y], _dots[x, y + 1],
+                        VerticalLines[x, y] = InstantiateLine(settings.LinePrefab, _dots[x, y], _dots[x, y + 1],
                             parent, false);
                 }
             }
@@ -81,10 +80,10 @@ namespace GridSystem
                 {
                     var lines = new[]
                     {
-                        _horizontalLines[x, y],
-                        _verticalLines[x + 1, y],
-                        _horizontalLines[x, y + 1],
-                        _verticalLines[x, y]
+                        HorizontalLines[x, y],
+                        VerticalLines[x + 1, y],
+                        HorizontalLines[x, y + 1],
+                        VerticalLines[x, y]
                     };
 
                     Vector3 center = (_dots[x, y].transform.position + _dots[x + 1, y + 1].transform.position) * 0.5f;
@@ -112,10 +111,10 @@ namespace GridSystem
 
         public void ResetPreview()
         {
-            foreach (var line in _horizontalLines)
+            foreach (var line in HorizontalLines)
                 line.ResetPreview();
 
-            foreach (var line in _verticalLines)
+            foreach (var line in VerticalLines)
                 line.ResetPreview();
         }
 

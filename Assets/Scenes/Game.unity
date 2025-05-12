@@ -363,6 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <PositionTolerance>k__BackingField: 0.1
+  gridSpacing: 0.96
 --- !u!114 &247055626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,9 +759,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapes:
-  - {fileID: 930651561363017589, guid: 458719ddc8458b84791273d4fcef4c2e, type: 3}
-  - {fileID: 4850287314096101108, guid: f0d607154dc536d488e17370574cfc4b, type: 3}
   - {fileID: 858965157141184393, guid: 060e7f5482e38364b91359527050f083, type: 3}
+  - {fileID: 4850287314096101108, guid: f0d607154dc536d488e17370574cfc4b, type: 3}
+  - {fileID: 930651561363017589, guid: 458719ddc8458b84791273d4fcef4c2e, type: 3}
   - {fileID: 528497515408229176, guid: 9d1b731d46f372149b62a4513d25a7a7, type: 3}
   - {fileID: 586433758488970434, guid: 788e63c19a5354448afdac0193aab51e, type: 3}
   - {fileID: 713390760267254265, guid: f6c52646b84b4024fbfeadf68c4adfe8, type: 3}

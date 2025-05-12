@@ -39,11 +39,9 @@ namespace DeckSystem
             ShapeEvents.OnShapePlaced -= OnShapePlaced;
         }
 
-        public void SpawnDeck()
+        public void GenerateDeck()
         {
-            Debug.Log("Trying Spawning deck...");
             if (_gameEnded) return;
-            Debug.Log("Spawning deck...");
             ClearDeck();
 
             var shapes = deckShapeSpawner.GenerateDeck(deckSlots.Length);
@@ -78,7 +76,7 @@ namespace DeckSystem
             Destroy(shape.gameObject);
 
             if (ActiveShapes.Count == 0)
-                SpawnDeck();
+                GenerateDeck();
 
             ManagerType.Grid.GetManager<GridManager>().GridChecker.CheckLines();
             CheckIfGameIsLost();
@@ -96,7 +94,7 @@ namespace DeckSystem
         {
             yield return new WaitForEndOfFrame();
             Debug.Log("Checking if game is lost...");
-            bool canPlace = ActiveShapes.Any(shape => GridManager.GridPlacement.CanShapeBePlaced(shape));
+            bool canPlace = ActiveShapes.Any(shape => GridManager.GridPlacement.CanShapeBePlacedUsingStickPoints(shape.StickPoints));
 
             if (!canPlace)
             {
