@@ -78,7 +78,6 @@ namespace DeckSystem
             if (ActiveShapes.Count == 0)
                 GenerateDeck();
 
-            ManagerType.Grid.GetManager<GridManager>().GridSquareChecker.CheckLines();
             CheckIfGameIsLost();
         }
 
@@ -92,6 +91,8 @@ namespace DeckSystem
 
         private IEnumerator CheckGameLostRoutine()
         {
+            yield return new WaitForEndOfFrame();
+            GridManager.GridSquareChecker.CheckForCompletedLines();
             yield return new WaitForEndOfFrame();
             Debug.Log("Checking if game is lost...");
             bool canPlace = ActiveShapes.Any(shape => GridManager.GridPlacement.CanShapeBePlacedUsingStickPoints(shape.StickPoints));

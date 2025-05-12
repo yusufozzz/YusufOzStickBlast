@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GridSystem.Shapes;
+using GridSystem.Visuals;
 using UnityEngine;
 
 namespace GridSystem
@@ -7,7 +7,15 @@ namespace GridSystem
     public class Square : MonoBehaviour
     {
         private readonly List<Line> _lines = new();
-        public StickPoints StickPoints { get; private set; }
+        private ItemVisual _itemVisual;
+
+        [SerializeField]
+        private SpriteRenderer spriteRenderer;
+
+        private void Awake()
+        {
+            _itemVisual = GetComponent<ItemVisual>();
+        }
 
         public void SetLines(IEnumerable<Line> lines)
         {
@@ -19,12 +27,30 @@ namespace GridSystem
         {
             foreach (var line in _lines)
             {
-                if (!line.IsOccupied)
-                    return false;
+                if (!line.IsOccupied) return false;
             }
+            
             return true;
         }
 
-        public IReadOnlyList<Line> Lines => _lines;
+        public void CheckIfCompleted()
+        {
+            Debug.Log(_lines.Count);
+            Debug.Log($"Checking square: {gameObject.name}");
+            if (IsComplete())
+            {
+                spriteRenderer.transform.localScale = Vector3.one;
+            }
+        }
+        
+        public void Clear()
+        {
+            foreach (var line in _lines)
+            {
+                line.Clear();
+            }
+            
+            spriteRenderer.transform.localScale = Vector3.zero;
+        }
     }
 }

@@ -308,7 +308,7 @@ MonoBehaviour:
   <Type>k__BackingField: 5
   <GridSettings>k__BackingField: {fileID: 11400000, guid: 373f9ede76cc3da4abddc5af22189541, type: 2}
   <GridGenerator>k__BackingField: {fileID: 247055622}
-  <GridChecker>k__BackingField: {fileID: 247055623}
+  <GridSquareChecker>k__BackingField: {fileID: 247055623}
   <GridPlacement>k__BackingField: {fileID: 247055625}
 --- !u!4 &247055621
 Transform:

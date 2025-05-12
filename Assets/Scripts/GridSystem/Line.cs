@@ -54,5 +54,22 @@ namespace GridSystem
                 dot.ResetPreview();
             }
         }
+
+        public void Clear()
+        {
+            Destroy(_stick.gameObject);
+            _stick = null;
+            foreach (var dot in _dots)
+            {
+                dot.ResetPreview();
+            }
+            
+            if (_itemVisual.IsPreviewed)
+            {
+                ResetPreview();
+            }
+            
+            _itemVisual.SetColor(Color.white);
+        }
     }
 }

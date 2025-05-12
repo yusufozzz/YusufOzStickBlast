@@ -9,7 +9,7 @@ namespace GridSystem
         private Dot[,] _dots;
         public Line[,] HorizontalLines { get; private set; }
         public Line[,] VerticalLines { get; private set; }
-        private List<Square> _squares = new();
+        public Square[,] Squares { get; private set; }
 
         public void Generate(GridSettingsSo settings)
         {
@@ -20,6 +20,7 @@ namespace GridSystem
             _dots = new Dot[size, size];
             HorizontalLines = new Line[size - 1, size];
             VerticalLines = new Line[size, size - 1];
+            Squares = new Square[size - 1, size - 1];
 
             var dotRoot = CreateRoot("Dots");
             var lineRoot = CreateRoot("Lines");
@@ -89,8 +90,7 @@ namespace GridSystem
                     Vector3 center = (_dots[x, y].transform.position + _dots[x + 1, y + 1].transform.position) * 0.5f;
                     var square = Instantiate(settings.SquarePrefab, center, Quaternion.identity, parent);
                     square.SetLines(lines);
-                    _squares.Add(square);
-                    ManagerType.Grid.GetManager<GridManager>().GridSquareChecker.Register(square);
+                    Squares[x, y] = square;
                 }
             }
 

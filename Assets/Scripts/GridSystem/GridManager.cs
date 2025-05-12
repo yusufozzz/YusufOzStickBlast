@@ -25,6 +25,7 @@ namespace GridSystem
             base.SetUp();
             GridGenerator.Generate(GridSettings);
             GridPlacement.Initialize(GridGenerator.HorizontalLines, GridGenerator.VerticalLines);
+            GridSquareChecker.Initialize(GridGenerator.Squares);
             DeckManager.GenerateDeck();
         }
     }
