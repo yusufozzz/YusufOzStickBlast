@@ -8,6 +8,7 @@
         UI,
         Level,
         Grid,
-        Deck
+        Deck,
+        Particle
     }
 }

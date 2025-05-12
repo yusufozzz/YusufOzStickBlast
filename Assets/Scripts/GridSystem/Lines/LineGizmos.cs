@@ -24,7 +24,7 @@ namespace GridSystem.Lines
         {
             if (_line == null) return;
             
-            int memberCount = _line.MemberOfCompletedSquares.Count;
+            int memberCount = _line.MemberOfCompletedSquaresCount;
             Gizmos.color = textColor;
                 
             // Position the text directly on the line

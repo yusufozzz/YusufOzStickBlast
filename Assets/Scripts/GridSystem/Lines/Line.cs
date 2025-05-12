@@ -10,10 +10,11 @@ namespace GridSystem.Lines
     public class Line : MonoBehaviour
     {
         public bool IsOccupied => _stick != null;
+        public int MemberOfCompletedSquaresCount => _memberOfCompletedSquares.Count;
         private readonly List<Dot> _dots = new();
         private Stick _stick;
         private ItemVisual _itemVisual;
-        public Queue<int> MemberOfCompletedSquares { get; private set; } = new Queue<int>();
+        private readonly Queue<int> _memberOfCompletedSquares = new Queue<int>();
         public void SetDots(Dot a, Dot b)
         {
             _dots.Clear();
@@ -59,10 +60,10 @@ namespace GridSystem.Lines
 
         public void Clear()
         {
-            if (MemberOfCompletedSquares.Count > 0)
+            if (_memberOfCompletedSquares.Count > 0)
             {
-                MemberOfCompletedSquares.Dequeue();
-                if (MemberOfCompletedSquares.Count == 0)
+                _memberOfCompletedSquares.Dequeue();
+                if (_memberOfCompletedSquares.Count == 0)
                 {
                     if (_stick == null) return;
                     Destroy(_stick.gameObject);
@@ -79,8 +80,7 @@ namespace GridSystem.Lines
 
         public void SetAsMemberOfCompletedSquare()
         {
-            MemberOfCompletedSquares.Enqueue(0);
+            _memberOfCompletedSquares.Enqueue(0);
         }
-
     }
 }

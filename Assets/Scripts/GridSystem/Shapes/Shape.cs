@@ -47,9 +47,8 @@ namespace GridSystem.Shapes
         public void Place()
         {
             IsPlaced = true;
-            ShapeEvents.OnShapePlaced?.Invoke(this);
             shapePlacementValidator.TryPlace();
-            ShapeEvents.RefreshGridMap?.Invoke();
+            ShapeEvents.OnShapePlaced?.Invoke(this);
         }
         
         public void SetSortingOrder(int order)

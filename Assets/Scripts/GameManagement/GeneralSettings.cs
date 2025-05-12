@@ -10,6 +10,9 @@ namespace GameManagement
         [field: SerializeField]
         public ColorList DefaultColorList { get; private set; }
 
+        [field: SerializeField]
+        public float SquareAnimationDuration { get; private set; } = 0.25f;
+
         [Serializable]
         public class ColorList
         {

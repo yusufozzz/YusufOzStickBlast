@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameManagement;
-using GridSystem;
 using GridSystem.GridSpecific;
 using GridSystem.Shapes;
 using UnityEngine;
@@ -56,7 +55,7 @@ namespace DeckSystem
 
             CheckIfGameIsLost();
         }
-        
+
         private void ClearDeck()
         {
             foreach (var shape in ActiveShapes)
@@ -78,7 +77,8 @@ namespace DeckSystem
 
             if (ActiveShapes.Count == 0)
                 GenerateDeck();
-
+            
+            GridManager.GridSquareChecker.CheckForCompletedLines();
             CheckIfGameIsLost();
         }
 
@@ -93,10 +93,8 @@ namespace DeckSystem
         private IEnumerator CheckGameLostRoutine()
         {
             yield return new WaitForEndOfFrame();
-            GridManager.GridSquareChecker.CheckForCompletedLines();
-            yield return new WaitForEndOfFrame();
-            Debug.Log("Checking if game is lost...");
-            bool canPlace = ActiveShapes.Any(shape => GridManager.GridPlacement.CanShapeBePlacedUsingStickPoints(shape.StickPoints));
+            bool canPlace = ActiveShapes.Any(shape =>
+                GridManager.GridPlacement.CanShapeBePlacedUsingStickPoints(shape.StickPoints));
 
             if (!canPlace)
             {
