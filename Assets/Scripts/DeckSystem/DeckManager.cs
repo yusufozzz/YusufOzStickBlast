@@ -5,6 +5,7 @@ using GameManagement;
 using GridSystem.GridSpecific;
 using GridSystem.Shapes;
 using UnityEngine;
+using Utilities;
 
 namespace DeckSystem
 {
@@ -15,11 +16,15 @@ namespace DeckSystem
 
         [SerializeField]
         private DeckShapeSpawner deckShapeSpawner;
+        
+        [SerializeField]
+        private float gameOverCheckDelay = 0.5f;
 
         public readonly List<Shape> ActiveShapes = new();
 
         private bool _gameEnded;
         private Coroutine _checkGameLostRoutine;
+        private Coroutine _refreshDeckRoutine;
         private GridManager GridManager => ManagerType.Grid.GetManager<GridManager>();
 
         public override void SetUp()
@@ -69,7 +74,16 @@ namespace DeckSystem
 
         private void OnShapePlaced(Shape shape)
         {
-            if (_gameEnded) return;
+            if (_refreshDeckRoutine != null)
+                StopCoroutine(_refreshDeckRoutine);
+
+            _refreshDeckRoutine = StartCoroutine(RefreshDeckRoutine(shape));
+            CheckIfGameIsLost();
+        }
+        
+        private IEnumerator RefreshDeckRoutine(Shape shape)
+        {
+            if (_gameEnded) yield break;
 
             ActiveShapes.Remove(shape);
             shape.ClearSticks();
@@ -77,10 +91,10 @@ namespace DeckSystem
 
             GridManager.GridSquareChecker.CheckForCompletedLines();
 
+            yield return new WaitForEndOfFrame();
+            
             if (ActiveShapes.Count == 0)
                 GenerateDeck();
-            
-            CheckIfGameIsLost();
         }
 
         private void CheckIfGameIsLost()
@@ -93,7 +107,7 @@ namespace DeckSystem
 
         private IEnumerator CheckGameLostRoutine()
         {
-            yield return new WaitForEndOfFrame();
+            yield return CoroutineExtensions.WaitForSeconds(gameOverCheckDelay);
             bool canPlace = ActiveShapes.Any(shape =>
                 GridManager.GridPlacement.CanShapeBePlacedUsingStickPoints(shape.StickPoints));
 
