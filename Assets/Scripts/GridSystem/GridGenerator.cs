@@ -97,11 +97,13 @@ namespace GridSystem
             #endregion
         }
 
-        private Line InstantiateLine(Line prefab, Dot a, Dot b, Transform parent, bool rotate90)
+        private Line InstantiateLine(Line prefab, Dot dotA, Dot dotB, Transform parent, bool rotate90)
         {
-            var mid = (a.transform.position + b.transform.position) * 0.5f;
+            var mid = (dotA.transform.position + dotB.transform.position) * 0.5f;
             var line = Instantiate(prefab, mid, Quaternion.identity, parent);
-            line.SetDots(a, b);
+            line.SetDots(dotA, dotB);
+            dotA.SetLine(line);
+            dotB.SetLine(line);
 
             if (rotate90)
                 line.transform.rotation = Quaternion.Euler(0f, 0f, 90f);

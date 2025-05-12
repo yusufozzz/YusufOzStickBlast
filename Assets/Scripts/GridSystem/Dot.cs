@@ -1,4 +1,5 @@
-﻿using GridSystem.Visuals;
+﻿using System.Collections.Generic;
+using GridSystem.Visuals;
 using UnityEngine;
 
 namespace GridSystem
@@ -6,6 +7,8 @@ namespace GridSystem
     public class Dot : MonoBehaviour
     {
         private ItemVisual _itemVisual;
+        private readonly List<Line> _lines = new();
+
         public void SetUp()
         {
             _itemVisual ??= GetComponent<ItemVisual>();
@@ -26,6 +29,23 @@ namespace GridSystem
         public void SetColor(Color color)
         {
             _itemVisual.SetColor(color);
+        }
+
+        public void SetLine(Line line)
+        {
+            _lines.Add(line);
+        }
+        
+        public bool CheckIfThereIsOccupiedLine()
+        {
+            foreach (var line in _lines)
+            {
+                if (line.IsOccupied)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

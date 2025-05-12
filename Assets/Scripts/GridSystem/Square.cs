@@ -10,6 +10,8 @@ namespace GridSystem
 
         [SerializeField]
         private SpriteRenderer spriteRenderer;
+        
+        private bool _isCompleted;
 
         public void SetLines(IEnumerable<Line> lines)
         {
@@ -24,8 +26,9 @@ namespace GridSystem
 
         public void CheckIfCompleted()
         {
-            if (IsComplete())
+            if (IsComplete() && !_isCompleted)
             {
+                _isCompleted = true;
                 Complete();
             }
         }
@@ -41,6 +44,7 @@ namespace GridSystem
 
         public void Clear()
         {
+            _isCompleted = false;
             foreach (var line in _lines)
             {
                 line.Clear();
