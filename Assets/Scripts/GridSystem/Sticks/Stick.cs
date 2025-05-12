@@ -23,5 +23,10 @@ namespace GridSystem.Sticks
         {
             spriteRenderer.color = color;
         }
+
+        public void SetSortingOrder(int order)
+        {
+            spriteRenderer.sortingOrder = order;
+        }
     }
 }

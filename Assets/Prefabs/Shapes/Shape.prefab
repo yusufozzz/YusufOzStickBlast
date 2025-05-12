@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7093446092648708066}
   - component: {fileID: 8727527256374077221}
   - component: {fileID: 7055682285350302153}
-  - component: {fileID: 4700048838852304277}
   m_Layer: 0
   m_Name: Shape
   m_TagString: Untagged
@@ -94,7 +93,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stickPoints: []
-  sortingGroup: {fileID: 4700048838852304277}
   shapeMovement: {fileID: 8727527256374077221}
   shapePlacementValidator: {fileID: 7055682285350302153}
 --- !u!114 &8727527256374077221
@@ -121,15 +119,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0cc4ab0899b6e44910fc21120e90f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!210 &4700048838852304277
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1715741822452102343}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 100
-  m_SortAtRoot: 0

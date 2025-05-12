@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameManagement;
 using GridSystem.Sticks;
 using GridSystem.Visuals;
 using UnityEngine;
@@ -57,19 +58,18 @@ namespace GridSystem
 
         public void Clear()
         {
+            if (_stick == null) return;
             Destroy(_stick.gameObject);
             _stick = null;
             foreach (var dot in _dots)
             {
-                dot.ResetPreview();
+                dot.SetColor(GeneralSettings.Instance.DefaultColorList.dotColor);
             }
-            
-            if (_itemVisual.IsPreviewed)
-            {
-                ResetPreview();
-            }
-            
-            _itemVisual.SetColor(Color.white);
+            _itemVisual.SetColor(GeneralSettings.Instance.DefaultColorList.lineColor);
+        }
+
+        public void SetAsMemberOfCompletedSquare()
+        {
         }
     }
 }

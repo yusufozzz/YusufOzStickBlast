@@ -2,7 +2,6 @@
 using System.Linq;
 using GridSystem.Sticks;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace GridSystem.Shapes
 {
@@ -13,9 +12,6 @@ namespace GridSystem.Shapes
         public IReadOnlyList<StickPoints> StickPoints => stickPoints;
 
         public List<Stick> Sticks { get; private set; } = new List<Stick>();
-
-        [SerializeField]
-        private SortingGroup sortingGroup;
 
         [SerializeField]
         private ShapeMovement shapeMovement;
@@ -58,7 +54,7 @@ namespace GridSystem.Shapes
         
         public void SetSortingOrder(int order)
         {
-            sortingGroup.sortingOrder = order;
+            Sticks.ForEach(stick => stick.SetSortingOrder(order));
         }
     }
 }

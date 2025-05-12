@@ -10,9 +10,9 @@ namespace GridSystem
         private int lineSize;
         
         private Square[,] _squares;
-        private HashSet<int> _completedHorizontalLines = new HashSet<int>();
-        private HashSet<int> _completedVerticalLines = new HashSet<int>();
-        private HashSet<Square> _squaresToClear = new HashSet<Square>();
+        private readonly HashSet<int> _completedHorizontalLines = new HashSet<int>();
+        private readonly HashSet<int> _completedVerticalLines = new HashSet<int>();
+        private readonly HashSet<Square> _squaresToClear = new HashSet<Square>();
         
         public void Initialize(Square[,] squares)
         {
@@ -163,32 +163,6 @@ namespace GridSystem
             {
                 square.Clear();
             }
-        }
-        
-        public bool IsGridComplete()
-        {
-            return IsAllLinesComplete() || IsAllSquaresComplete();
-        }
-        
-        private bool IsAllLinesComplete()
-        {
-            int width = _squares.GetLength(0);
-            int height = _squares.GetLength(1);
-            
-            return _completedHorizontalLines.Count == height || _completedVerticalLines.Count == width;
-        }
-        
-        private bool IsAllSquaresComplete()
-        {
-            foreach (var square in _squares)
-            {
-                if (!square.IsComplete())
-                {
-                    return false;
-                }
-            }
-            
-            return true;
         }
         
         public void Reset()
