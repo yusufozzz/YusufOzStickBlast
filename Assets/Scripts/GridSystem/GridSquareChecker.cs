@@ -2,7 +2,7 @@
 
 namespace GridSystem
 {
-    public class GridChecker : MonoBehaviour
+    public class GridSquareChecker : MonoBehaviour
     {
         private Square[,] _squareGrid;
 

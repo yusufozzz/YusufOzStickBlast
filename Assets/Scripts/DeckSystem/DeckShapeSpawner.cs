@@ -1,5 +1,4 @@
-﻿using GameManagement;
-using GridSystem;
+﻿using GridSystem;
 using GridSystem.Shapes;
 using UnityEngine;
 

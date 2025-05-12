@@ -13,7 +13,7 @@ namespace GridSystem
         public GridGenerator GridGenerator { get; private set; }
 
         [field: SerializeField]
-        public GridChecker GridChecker { get; private set; }
+        public GridSquareChecker GridSquareChecker { get; private set; }
 
         private DeckManager DeckManager => ManagerType.Deck.GetManager<DeckManager>();
 

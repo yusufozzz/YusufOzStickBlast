@@ -78,7 +78,7 @@ namespace DeckSystem
             if (ActiveShapes.Count == 0)
                 GenerateDeck();
 
-            ManagerType.Grid.GetManager<GridManager>().GridChecker.CheckLines();
+            ManagerType.Grid.GetManager<GridManager>().GridSquareChecker.CheckLines();
             CheckIfGameIsLost();
         }
 

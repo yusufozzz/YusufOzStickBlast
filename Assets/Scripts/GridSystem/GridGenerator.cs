@@ -90,7 +90,7 @@ namespace GridSystem
                     var square = Instantiate(settings.SquarePrefab, center, Quaternion.identity, parent);
                     square.SetLines(lines);
                     _squares.Add(square);
-                    ManagerType.Grid.GetManager<GridManager>().GridChecker.Register(square);
+                    ManagerType.Grid.GetManager<GridManager>().GridSquareChecker.Register(square);
                 }
             }
 
