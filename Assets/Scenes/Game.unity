@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 247055623}
   - component: {fileID: 247055624}
   - component: {fileID: 247055625}
+  - component: {fileID: 247055626}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -377,6 +378,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridMapper: {fileID: 247055624}
   <PositionTolerance>k__BackingField: 0.5
+--- !u!114 &247055626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247055619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127e93346dc84441b0bdce8e183b2e18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridMapper: {fileID: 247055624}
+  showGizmos: 1
+  emptyLineColor: {r: 0, g: 1, b: 0, a: 0.5}
+  occupiedLineColor: {r: 1, g: 0, b: 0, a: 0.5}
+  lineThickness: 0.2
+  showOnlyEmptyLines: 0
 --- !u!1 &503056665
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,8 +773,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapes:
-  - {fileID: 4020310164161194661, guid: d4785a0d6b1c28b4f836f73902d0e3dc, type: 3}
-  - {fileID: 7604010973221803506, guid: e88db88f4c457124288abac46b618058, type: 3}
+  - {fileID: 930651561363017589, guid: 458719ddc8458b84791273d4fcef4c2e, type: 3}
+  - {fileID: 4850287314096101108, guid: f0d607154dc536d488e17370574cfc4b, type: 3}
+  - {fileID: 858965157141184393, guid: 060e7f5482e38364b91359527050f083, type: 3}
+  - {fileID: 528497515408229176, guid: 9d1b731d46f372149b62a4513d25a7a7, type: 3}
+  - {fileID: 586433758488970434, guid: 788e63c19a5354448afdac0193aab51e, type: 3}
+  - {fileID: 713390760267254265, guid: f6c52646b84b4024fbfeadf68c4adfe8, type: 3}
 --- !u!1 &1281207239
 GameObject:
   m_ObjectHideFlags: 0
