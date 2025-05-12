@@ -231,7 +231,7 @@ namespace GridSystem.Shapes.Editor
                     GetAlignedValue(localPos.x),
                     GetAlignedValue(localPos.y)
                 );
-                stickPointsList.Add(new StickPoints(alignedPos, isVertical));
+                stickPointsList.Add(new StickPoints(alignedPos/spacing, isVertical));
             }
 
             shape.SetStickPoints(stickPointsList);

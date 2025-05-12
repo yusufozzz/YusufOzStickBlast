@@ -1,5 +1,5 @@
-﻿using GameManagement;
-using GridSystem.Shapes;
+﻿using System.Collections.Generic;
+using GameManagement;
 using UnityEngine;
 
 namespace GridSystem
@@ -9,6 +9,7 @@ namespace GridSystem
         private Dot[,] _dots;
         private Line[,] _horizontalLines;
         private Line[,] _verticalLines;
+        private List<Square> _squares = new();
 
         public void Generate(GridSettingsSo settings)
         {
@@ -27,6 +28,7 @@ namespace GridSystem
             GenerateDots(settings, size, spacing, offset, dotRoot);
             GenerateLines(settings, size, lineRoot);
             GenerateSquares(settings, squareRoot);
+            GetComponent<GridMapper>().Initialize(_horizontalLines, _verticalLines, size);
         }
 
         private void GenerateDots(GridSettingsSo settings, int size, float spacing, float offset, Transform parent)
@@ -39,8 +41,7 @@ namespace GridSystem
                 {
                     Vector3 pos = new Vector3(x * spacing - offset, y * spacing - offset, 0f);
                     var dot = Instantiate(settings.DotPrefab, pos, Quaternion.identity, parent);
-                    dot.name = $"Dot_{x}_{y}";
-                    dot.SetCoordinates(x, y);
+                    dot.SetUp();
                     _dots[x, y] = dot;
                 }
             }
@@ -88,8 +89,8 @@ namespace GridSystem
 
                     Vector3 center = (_dots[x, y].transform.position + _dots[x + 1, y + 1].transform.position) * 0.5f;
                     var square = Instantiate(settings.SquarePrefab, center, Quaternion.identity, parent);
-                    square.name = $"Square_{x}_{y}";
                     square.SetLines(lines);
+                    _squares.Add(square);
                     ManagerType.Grid.GetManager<GridManager>().GridChecker.Register(square);
                 }
             }
@@ -117,15 +118,6 @@ namespace GridSystem
             foreach (var line in _verticalLines)
                 line.ResetPreview();
         }
-
-        #region Placement Check
-
-        public bool CanShapeBePlaced(Shape shape)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        #endregion
 
         private Transform CreateRoot(string name)
         {

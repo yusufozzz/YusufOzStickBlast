@@ -5,14 +5,9 @@ namespace GridSystem
 {
     public class Dot : MonoBehaviour
     {
-        public int X { get; private set; }
-        public int Y { get; private set; }
-
         private ItemVisual _itemVisual;
-        public void SetCoordinates(int x, int y)
+        public void SetUp()
         {
-            X = x;
-            Y = y;
             _itemVisual ??= GetComponent<ItemVisual>();
         }
 
