@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameManagement;
+using GridSystem.Lines;
 using UnityEngine;
 
 namespace GridSystem

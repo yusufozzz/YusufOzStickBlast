@@ -3,11 +3,8 @@ using GameManagement;
 using GridSystem.Sticks;
 using GridSystem.Visuals;
 using UnityEngine;
-#if true
-using UnityEditor;
-#endif
 
-namespace GridSystem
+namespace GridSystem.Lines
 {
     public class Line : MonoBehaviour
     {
@@ -15,7 +12,7 @@ namespace GridSystem
         private readonly List<Dot> _dots = new();
         private Stick _stick;
         private ItemVisual _itemVisual;
-        private Queue<int> _memberOfCompletedSquares = new();
+        public Queue<int> MemberOfCompletedSquares { get; private set; } = new Queue<int>();
         public void SetDots(Dot a, Dot b)
         {
             _dots.Clear();
@@ -28,7 +25,6 @@ namespace GridSystem
         {
             _stick = stick;
             SetColor(stick.GetColor());
-            Debug.Log($"Line occupied by {stick.name}");
         }
 
         private void SetColor(Color getColor)
@@ -62,10 +58,10 @@ namespace GridSystem
 
         public void Clear()
         {
-            if (_memberOfCompletedSquares.Count > 0)
+            if (MemberOfCompletedSquares.Count > 0)
             {
-                _memberOfCompletedSquares.Dequeue();
-                if (_memberOfCompletedSquares.Count == 0)
+                MemberOfCompletedSquares.Dequeue();
+                if (MemberOfCompletedSquares.Count == 0)
                 {
                     if (_stick == null) return;
                     Destroy(_stick.gameObject);
@@ -82,31 +78,8 @@ namespace GridSystem
 
         public void SetAsMemberOfCompletedSquare()
         {
-            _memberOfCompletedSquares.Enqueue(0);
+            MemberOfCompletedSquares.Enqueue(0);
         }
 
-        private void OnDrawGizmos()
-        {
-            var memberCount = _memberOfCompletedSquares.Count;
-            if (memberCount > 0)
-            {
-                Gizmos.color = Color.blue;
-        
-#if UNITY_EDITOR
-                // Position the text directly on the line
-                Vector3 textPosition = transform.position;
-        
-                // Create a style for the text
-                GUIStyle style = new GUIStyle();
-                style.normal.textColor = Color.blue;
-                style.fontSize = 20;
-                style.fontStyle = FontStyle.Bold;
-                style.alignment = TextAnchor.MiddleCenter;
-        
-                // Draw the text showing the count
-                Handles.Label(textPosition, memberCount.ToString(), style);
-#endif
-            }
-        }
     }
 }
