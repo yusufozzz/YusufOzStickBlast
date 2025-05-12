@@ -7,11 +7,17 @@ namespace GridSystem
 {
     public class GridPlacement : MonoBehaviour
     {
-        [SerializeField] 
-        private GridMapper gridMapper;
-        
         [field: SerializeField]
         public float PositionTolerance { get; private set; } = 0.5f;
+
+        public Line[,] HorizontalLines { get; private set; }
+        public Line[,] VerticalLines { get; private set; }
+        
+        public void Initialize(Line[,] horizontalLines, Line[,] verticalLines)
+        {
+            HorizontalLines = horizontalLines;
+            VerticalLines = verticalLines;
+        }
         
         // Check if a shape can be placed in its current orientation anywhere on the grid
         public bool CanShapeBePlaced(Shape shape)
@@ -55,9 +61,7 @@ namespace GridSystem
             bool isVertical = Mathf.Approximately(stick.transform.eulerAngles.z, 0f);
             
             // Get all lines with matching orientation
-            Line[,] lines = isVertical ? 
-                gridMapper.GetVerticalLines() : 
-                gridMapper.GetHorizontalLines();
+            Line[,] lines = isVertical ? VerticalLines : HorizontalLines;
             
             // Get dimensions
             int width = lines.GetLength(0);
@@ -110,10 +114,7 @@ namespace GridSystem
             bool isVertical = Mathf.Approximately(zRotation, 0f);
             
             // Get matching lines
-            Line[,] lines = isVertical ? 
-                gridMapper.GetVerticalLines() : 
-                gridMapper.GetHorizontalLines();
-            
+            Line[,] lines = isVertical ? VerticalLines : HorizontalLines;
             int width = lines.GetLength(0);
             int height = lines.GetLength(1);
             
@@ -137,55 +138,6 @@ namespace GridSystem
             }
             
             return closestLine;
-        }
-        
-        // Find a specific grid position for a shape placement
-        public Vector3? FindPlacementPosition(Shape shape)
-        {
-            // Get all possible placement positions for the first stick
-            var possiblePositions = GetPossiblePositions(shape.Sticks[0]);
-            
-            foreach (var placementPosition in possiblePositions)
-            {
-                // Calculate offset
-                Vector3 offset = placementPosition - shape.Sticks[0].transform.position;
-                
-                // Check if the shape can be placed with this offset
-                if (CanPlaceShapeWithOffset(shape, offset))
-                {
-                    // Return the position where the shape's pivot should be placed
-                    return shape.transform.position + offset;
-                }
-            }
-            
-            return null;
-        }
-        
-        // Debug function to highlight possible placement positions
-        public void DebugPlacementOptions(Shape shape)
-        {
-            // Get all possible placement positions for the first stick
-            var possiblePositions = GetPossiblePositions(shape.Sticks[0]);
-            int validPlacements = 0;
-            
-            foreach (var placementPosition in possiblePositions)
-            {
-                // Calculate offset
-                Vector3 offset = placementPosition - shape.Sticks[0].transform.position;
-                
-                // Check if the shape can be placed with this offset
-                if (CanPlaceShapeWithOffset(shape, offset))
-                {
-                    Debug.DrawLine(shape.transform.position, shape.transform.position + offset, Color.green, 2f);
-                    validPlacements++;
-                }
-                else
-                {
-                    Debug.DrawLine(shape.transform.position, shape.transform.position + offset, Color.red, 2f);
-                }
-            }
-            
-            Debug.Log($"Shape {shape.name} has {validPlacements} valid placement positions out of {possiblePositions.Count} tested positions");
         }
     }
 }

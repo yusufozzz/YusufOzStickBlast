@@ -28,7 +28,7 @@ namespace GridSystem
             GenerateDots(settings, size, spacing, offset, dotRoot);
             GenerateLines(settings, size, lineRoot);
             GenerateSquares(settings, squareRoot);
-            GetComponent<GridMapper>().Initialize(_horizontalLines, _verticalLines, size);
+            GetComponent<GridPlacement>().Initialize(_horizontalLines, _verticalLines);
         }
 
         private void GenerateDots(GridSettingsSo settings, int size, float spacing, float offset, Transform parent)
