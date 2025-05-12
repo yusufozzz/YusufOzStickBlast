@@ -42,7 +42,7 @@ namespace GridSystem
         {
             foreach (var line in _lines)
             {
-                line.SetAsMemberOfCompletedSquare();
+                line.SetAsMemberOfCompletedSquare(this);
             }
 
             Animate();
@@ -56,11 +56,13 @@ namespace GridSystem
 
         public void Clear()
         {
-            if (!_isCompleted) return;
+            Debug.Log($"Clearing square {gameObject.name}, completed: {_isCompleted}");
+            
             _isCompleted = false;
             _scaleTween?.Kill();
             foreach (var line in _lines)
             {
+                line.RemoveMemberOfCompletedSquare(this);
                 line.Clear();
             }
             PlayParticle();
@@ -69,7 +71,15 @@ namespace GridSystem
 
         private void PlayParticle()
         {
-            ManagerType.Particle.GetManager<ParticleManager>().PlayParticle(ParticleType.SquareBlast, transform.position);
+            var particleManager = ManagerType.Particle.GetManager<ParticleManager>();
+            if (particleManager != null)
+            {
+                particleManager.PlayParticle(ParticleType.SquareBlast, transform.position);
+            }
+            else
+            {
+                Debug.LogError("ParticleManager not found");
+            }
         }
     }
 }

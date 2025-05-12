@@ -14,7 +14,7 @@ namespace GridSystem.Lines
         private readonly List<Dot> _dots = new();
         private Stick _stick;
         private ItemVisual _itemVisual;
-        private readonly Queue<int> _memberOfCompletedSquares = new Queue<int>();
+        private readonly HashSet<Square> _memberOfCompletedSquares = new ();
         public void SetDots(Dot a, Dot b)
         {
             _dots.Clear();
@@ -60,27 +60,28 @@ namespace GridSystem.Lines
 
         public void Clear()
         {
-            if (_memberOfCompletedSquares.Count > 0)
+            if (_memberOfCompletedSquares.Count == 0)
             {
-                _memberOfCompletedSquares.Dequeue();
-                if (_memberOfCompletedSquares.Count == 0)
+                if (_stick == null) return;
+                Destroy(_stick.gameObject);
+                _stick = null;
+                foreach (var dot in _dots)
                 {
-                    if (_stick == null) return;
-                    Destroy(_stick.gameObject);
-                    _stick = null;
-                    foreach (var dot in _dots)
-                    {
-                        if(!dot.CheckIfThereIsOccupiedLine())
-                            dot.SetColor(GeneralSettings.Instance.DefaultColorList.dotColor);
-                    }
-                    _itemVisual.SetColor(GeneralSettings.Instance.DefaultColorList.lineColor);
+                    if(!dot.CheckIfThereIsOccupiedLine())
+                        dot.SetColor(GeneralSettings.Instance.DefaultColorList.dotColor);
                 }
+                _itemVisual.SetColor(GeneralSettings.Instance.DefaultColorList.lineColor);
             }
         }
 
-        public void SetAsMemberOfCompletedSquare()
+        public void SetAsMemberOfCompletedSquare(Square square)
         {
-            _memberOfCompletedSquares.Enqueue(0);
+            _memberOfCompletedSquares.Add(square);
+        }
+        
+        public void RemoveMemberOfCompletedSquare(Square square)
+        {
+            _memberOfCompletedSquares.Remove(square);
         }
     }
 }

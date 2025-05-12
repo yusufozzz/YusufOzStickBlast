@@ -80,9 +80,9 @@ namespace GridSystem.Shapes
             if (!canGetLine) return false;
             if (line.IsOccupied) return false;
             var distanceBetweenStickAndLine = stick.transform.position.GetDistance2D(line.transform.position);
-            var isCloseEnough = distanceBetweenStickAndLine < 0.3f;
+            var isCloseEnough = distanceBetweenStickAndLine < 1f;
             if (!isCloseEnough) return false;
-            var areTheyBothInSameDirection = Vector3.Dot(stick.transform.up, line.transform.up) > 0.2f;
+            var areTheyBothInSameDirection = Vector3.Dot(stick.transform.up, line.transform.up) > 0.3f;
             return areTheyBothInSameDirection;
         }
 

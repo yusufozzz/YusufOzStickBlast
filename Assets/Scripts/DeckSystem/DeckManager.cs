@@ -75,10 +75,11 @@ namespace DeckSystem
             shape.ClearSticks();
             Destroy(shape.gameObject);
 
+            GridManager.GridSquareChecker.CheckForCompletedLines();
+
             if (ActiveShapes.Count == 0)
                 GenerateDeck();
             
-            GridManager.GridSquareChecker.CheckForCompletedLines();
             CheckIfGameIsLost();
         }
 
