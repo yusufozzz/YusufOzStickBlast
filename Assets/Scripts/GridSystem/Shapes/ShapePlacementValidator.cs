@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GameManagement;
+using GridSystem.GridSpecific;
 using GridSystem.Lines;
 using GridSystem.Sticks;
 using UnityEngine;

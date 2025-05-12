@@ -2,7 +2,7 @@
 using GridSystem.Lines;
 using UnityEngine;
 
-namespace GridSystem
+namespace GridSystem.GridSpecific
 {
     [CreateAssetMenu(fileName = "GridSettings", menuName = "Game/Grid Settings")]
     public class GridSettingsSo : ScriptableObject

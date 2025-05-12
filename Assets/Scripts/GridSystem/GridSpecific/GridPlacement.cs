@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using GridSystem.Lines;
 using GridSystem.Shapes;
-using GridSystem.Sticks;
 using UnityEngine;
 
-namespace GridSystem
+namespace GridSystem.GridSpecific
 {
     public class GridPlacement : MonoBehaviour
     {

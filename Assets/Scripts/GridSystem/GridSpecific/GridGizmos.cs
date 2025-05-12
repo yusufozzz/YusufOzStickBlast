@@ -1,8 +1,7 @@
-﻿using System;
-using GridSystem.Lines;
+﻿using GridSystem.Lines;
 using UnityEngine;
 
-namespace GridSystem
+namespace GridSystem.GridSpecific
 {
     public class GridGizmos : MonoBehaviour
     {

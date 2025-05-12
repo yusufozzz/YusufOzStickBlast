@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace GridSystem
+namespace GridSystem.GridSpecific
 {
     public class GridSquareChecker : MonoBehaviour
     {

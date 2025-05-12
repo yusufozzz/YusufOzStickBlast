@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using GameManagement;
-using GridSystem.Dots;
+﻿using GridSystem.Dots;
 using GridSystem.Lines;
 using UnityEngine;
 
-namespace GridSystem
+namespace GridSystem.GridSpecific
 {
     public class GridGenerator : MonoBehaviour
     {

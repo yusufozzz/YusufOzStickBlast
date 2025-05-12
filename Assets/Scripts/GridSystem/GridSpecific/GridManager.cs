@@ -2,7 +2,7 @@
 using GameManagement;
 using UnityEngine;
 
-namespace GridSystem
+namespace GridSystem.GridSpecific
 {
     public class GridManager : ManagerBase
     {
