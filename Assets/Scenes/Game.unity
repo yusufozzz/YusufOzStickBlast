@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af9cb589a044889b3dfd38ef5933a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PositionTolerance>k__BackingField: 0.5
+  <PositionTolerance>k__BackingField: 0.1
 --- !u!114 &247055626
 MonoBehaviour:
   m_ObjectHideFlags: 0
