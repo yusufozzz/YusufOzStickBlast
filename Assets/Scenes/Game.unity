@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 247055622}
   - component: {fileID: 247055623}
   - component: {fileID: 247055624}
+  - component: {fileID: 247055625}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -308,6 +309,7 @@ MonoBehaviour:
   <GridSettings>k__BackingField: {fileID: 11400000, guid: 373f9ede76cc3da4abddc5af22189541, type: 2}
   <GridGenerator>k__BackingField: {fileID: 247055622}
   <GridChecker>k__BackingField: {fileID: 247055623}
+  <GridPlacement>k__BackingField: {fileID: 247055625}
 --- !u!4 &247055621
 Transform:
   m_ObjectHideFlags: 0
@@ -360,6 +362,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3631a71f5c495a9688886a4cfeb92a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  positionTolerance: 0.5
+--- !u!114 &247055625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247055619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af9cb589a044889b3dfd38ef5933a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridMapper: {fileID: 247055624}
+  <PositionTolerance>k__BackingField: 0.5
 --- !u!1 &503056665
 GameObject:
   m_ObjectHideFlags: 0

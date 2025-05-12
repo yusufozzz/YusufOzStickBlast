@@ -195,5 +195,15 @@ namespace GridSystem
             
             Debug.Log(debug.ToString());
         }
+
+        public Line[,] GetVerticalLines()
+        {
+            return _verticalLines;
+        }
+        
+        public Line[,] GetHorizontalLines()
+        {
+            return _horizontalLines;
+        }
     }
 }

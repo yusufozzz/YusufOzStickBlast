@@ -96,7 +96,7 @@ namespace DeckSystem
         {
             yield return new WaitForEndOfFrame();
             Debug.Log("Checking if game is lost...");
-            bool canPlace = true;/*ActiveShapes.Any(shape => GridManager.GridGenerator.CanShapeBePlaced(shape));*/
+            bool canPlace = ActiveShapes.Any(shape => GridManager.GridPlacement.CanShapeBePlaced(shape));
 
             if (!canPlace)
             {

@@ -16,6 +16,10 @@ namespace GridSystem
         public GridChecker GridChecker { get; private set; }
 
         private DeckManager DeckManager => ManagerType.Deck.GetManager<DeckManager>();
+
+        [field: SerializeField]
+        public GridPlacement GridPlacement { get; private set; }
+
         public override void SetUp()
         {
             base.SetUp();
