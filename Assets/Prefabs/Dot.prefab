@@ -76,9 +76,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textColor: {r: 0, g: 1, b: 0, a: 1}
-  fontSize: 16
-  textOffset: {x: 0, y: 0.15, z: 0}
-  showOnlyWhenOccupied: 1
 --- !u!1 &3491582825410007204
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +318,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 51
   m_Sprite: {fileID: 21300000, guid: cc89fa6852960904f8cd5f7d3b246e37, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
