@@ -10,11 +10,10 @@ namespace GridSystem.Squares
 {
     public class Square : MonoBehaviour
     {
-        private readonly List<Line> _lines = new();
-
         [SerializeField]
         private SpriteRenderer spriteRenderer;
         
+        private readonly List<Line> _lines = new();
         private bool _isCompleted;
         private Tween _scaleTween;
 
@@ -24,14 +23,19 @@ namespace GridSystem.Squares
             _lines.AddRange(lines);
         }
 
-        public bool IsComplete()
+        public bool IsCompleted()
         {
             return _lines.All(line => line.IsOccupied);
         }
-
-        public void CheckIfCompleted()
+        
+        public bool IsCompletedOrPreviewed()
         {
-            if (IsComplete() && !_isCompleted)
+            return _lines.All(line => line.IsOccupied || line.IsPreviewed);
+        }
+
+        public void TryComplete()
+        {
+            if (IsCompleted() && !_isCompleted)
             {
                 _isCompleted = true;
                 Complete();

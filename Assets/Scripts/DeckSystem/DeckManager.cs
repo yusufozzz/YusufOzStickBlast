@@ -77,7 +77,9 @@ namespace DeckSystem
             shape.ClearSticks();
             Destroy(shape.gameObject);
             
-            GridManager.GridSquareChecker.CheckForCompletedLines();
+            GridManager.GridSquareChecker.UpdateSquareStates();
+            
+            GridManager.GridSquareChecker.ProcessMatching();
 
             if (ActiveShapes.Count == 0)
                 GenerateDeck();

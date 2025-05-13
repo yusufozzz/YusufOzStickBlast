@@ -1,26 +1,30 @@
 ﻿using System.Collections.Generic;
+using GameManagement;
+using GridSystem.Lines;
 using GridSystem.Squares;
+using HighlightSystem;
 using UnityEngine;
 
 namespace GridSystem.GridSpecific
 {
     public class GridSquareChecker : MonoBehaviour
     {
-        [SerializeField] 
+        [SerializeField]
         private int lineSize;
-        
+
         private Square[,] _squares;
-        private readonly HashSet<int> _completedHorizontalLines = new HashSet<int>();
-        private readonly HashSet<int> _completedVerticalLines = new HashSet<int>();
+        private readonly HashSet<int> _completedOrPreviewedHorizontalSquareGroup = new HashSet<int>();
+        private readonly HashSet<int> _completedOrPreviewedVerticalSquareGroup = new HashSet<int>();
         private readonly HashSet<Square> _squaresToClear = new HashSet<Square>();
-        
+        private HighlightManager HighlightManager => ManagerType.Highlight.GetManager<HighlightManager>();
+
         public void Initialize(Square[,] squares)
         {
             _squares = squares;
             DetermineLineSize();
             ResetTrackedLines();
         }
-        
+
         private void DetermineLineSize()
         {
             if (lineSize <= 0 && _squares != null)
@@ -28,66 +32,77 @@ namespace GridSystem.GridSpecific
                 lineSize = Mathf.Min(_squares.GetLength(0), _squares.GetLength(1));
             }
         }
-        
+
         private void ResetTrackedLines()
         {
-            _completedHorizontalLines.Clear();
-            _completedVerticalLines.Clear();
+            _completedOrPreviewedHorizontalSquareGroup.Clear();
+            _completedOrPreviewedVerticalSquareGroup.Clear();
             _squaresToClear.Clear();
         }
         
-        private void UpdateSquareStates()
+        public void UpdateSquareStates()
         {
-            if (_squares == null)
-                return;
-            
             foreach (var square in _squares)
             {
-                if (square == null)
-                    continue;
-                
-                square.CheckIfCompleted();
+                square.TryComplete();
             }
         }
-        
-        public void CheckForCompletedLines()
+
+        public void SimulateHighlight()
         {
+            Debug.Log("Simulating highlight");
             ResetTrackedLines();
-            
-            if (_squares == null)
-                return;
-            
-            _squaresToClear.Clear();
-            
-            UpdateSquareStates();
-            CheckHorizontalLines();
-            CheckVerticalLines();
-            
+            CheckHorizontalMatch();
+            CheckVerticalMatch();
+            PlayHighlight();
+        }
+
+        private void PlayHighlight()
+        {
+            foreach (var square in _squaresToClear)
+            {
+                var squarePosition = square.transform.position;
+                var highlight = HighlightManager.GetHighlight();
+                highlight.SetPosition(squarePosition);
+                highlight.PlayAnimation();
+            }
+        }
+
+        public void ResetHighlight()
+        {
+            Debug.Log("Resetting highlight");
+            HighlightManager.ClearAllHighlights();
+        }
+
+        public void ProcessMatching()
+        {
             if (_squaresToClear.Count > 0)
             {
-                ProcessCompletedSquares();
+                ClearMatchedSquares();
             }
+            ResetHighlight();
+            ResetTrackedLines();
         }
-        
-        private void CheckHorizontalLines()
+
+        private void CheckHorizontalMatch()
         {
             int height = _squares.GetLength(1);
-            
+
             for (int y = 0; y < height; y++)
             {
-                if (_completedHorizontalLines.Contains(y))
+                if (_completedOrPreviewedHorizontalSquareGroup.Contains(y))
                     continue;
-                
-                CheckSingleHorizontalLine(y);
+
+                CheckSingleHorizontalMatch(y);
             }
         }
-        
-        private void CheckSingleHorizontalLine(int y)
+
+        private void CheckSingleHorizontalMatch(int y)
         {
             int width = _squares.GetLength(0);
             int consecutiveCompleted = 0;
             List<Square> lineSquares = new List<Square>();
-            
+
             for (int x = 0; x < width; x++)
             {
                 if (_squares[x, y] == null)
@@ -96,17 +111,17 @@ namespace GridSystem.GridSpecific
                     lineSquares.Clear();
                     continue;
                 }
-                
-                bool isComplete = _squares[x, y].IsComplete();
-                
+
+                bool isComplete = _squares[x, y].IsCompletedOrPreviewed();
+
                 if (isComplete)
                 {
                     consecutiveCompleted++;
                     lineSquares.Add(_squares[x, y]);
-                    
+
                     if (consecutiveCompleted == lineSize)
                     {
-                        MarkHorizontalLineCompleted(y, lineSquares);
+                        MarkHorizontalMatchCompleted(y, lineSquares);
                         break;
                     }
                 }
@@ -117,36 +132,37 @@ namespace GridSystem.GridSpecific
                 }
             }
         }
-        
-        private void MarkHorizontalLineCompleted(int y, List<Square> lineSquares)
+
+        private void MarkHorizontalMatchCompleted(int y, List<Square> lineSquares)
         {
-            _completedHorizontalLines.Add(y);
-            
+            Debug.Log($"Marking horizontal match completed at y: {y}");
+            _completedOrPreviewedHorizontalSquareGroup.Add(y);
+
             foreach (var square in lineSquares)
             {
                 _squaresToClear.Add(square);
             }
         }
-        
-        private void CheckVerticalLines()
+
+        private void CheckVerticalMatch()
         {
             int width = _squares.GetLength(0);
-            
+
             for (int x = 0; x < width; x++)
             {
-                if (_completedVerticalLines.Contains(x))
+                if (_completedOrPreviewedVerticalSquareGroup.Contains(x))
                     continue;
-                
-                CheckSingleVerticalLine(x);
+
+                CheckSingleVerticalMatch(x);
             }
         }
-        
-        private void CheckSingleVerticalLine(int x)
+
+        private void CheckSingleVerticalMatch(int x)
         {
             int height = _squares.GetLength(1);
             int consecutiveCompleted = 0;
             List<Square> lineSquares = new List<Square>();
-            
+
             for (int y = 0; y < height; y++)
             {
                 if (_squares[x, y] == null)
@@ -155,17 +171,17 @@ namespace GridSystem.GridSpecific
                     lineSquares.Clear();
                     continue;
                 }
-                
-                bool isComplete = _squares[x, y].IsComplete();
-                
+
+                bool isComplete = _squares[x, y].IsCompletedOrPreviewed();
+
                 if (isComplete)
                 {
                     consecutiveCompleted++;
                     lineSquares.Add(_squares[x, y]);
-                    
+
                     if (consecutiveCompleted == lineSize)
                     {
-                        MarkVerticalLineCompleted(x, lineSquares);
+                        MarkVerticalMatchCompleted(x, lineSquares);
                         break;
                     }
                 }
@@ -176,31 +192,27 @@ namespace GridSystem.GridSpecific
                 }
             }
         }
-        
-        private void MarkVerticalLineCompleted(int x, List<Square> lineSquares)
+
+        private void MarkVerticalMatchCompleted(int x, List<Square> lineSquares)
         {
-            _completedVerticalLines.Add(x);
-            
+            Debug.Log($"Marking vertical match completed at x: {x}");
+            _completedOrPreviewedVerticalSquareGroup.Add(x);
+
             foreach (var square in lineSquares)
             {
                 _squaresToClear.Add(square);
             }
         }
-        
-        private void ProcessCompletedSquares()
+
+        private void ClearMatchedSquares()
         {
             foreach (var square in _squaresToClear)
             {
                 if (square == null)
                     continue;
-                
+
                 square.Clear();
             }
-        }
-        
-        public void Reset()
-        {
-            ResetTrackedLines();
         }
     }
 }

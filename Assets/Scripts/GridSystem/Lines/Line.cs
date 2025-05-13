@@ -11,6 +11,7 @@ namespace GridSystem.Lines
     public class Line : MonoBehaviour
     {
         public bool IsOccupied => _stick != null;
+        public bool IsPreviewed => _itemVisual.IsPreviewed;
         public int MemberOfCompletedSquaresCount => _memberOfCompletedSquares.Count;
         private readonly List<Dot> _dots = new();
         private Stick _stick;

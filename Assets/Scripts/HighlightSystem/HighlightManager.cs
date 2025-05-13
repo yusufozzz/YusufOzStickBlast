@@ -10,22 +10,7 @@ namespace HighlightSystem
         private Highlight prefab;
         
         private readonly Queue<Highlight> _highlightPool = new ();
-        
-        public override void SetUp()
-        {
-            base.SetUp();
-            InitializeHighlightPool();
-        }
-        
-        private void InitializeHighlightPool()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                var highlight = Instantiate(prefab,transform);
-                highlight.gameObject.SetActive(false);
-                _highlightPool.Enqueue(highlight);
-            }
-        }
+        private readonly HashSet<Highlight> _activeHighlights = new ();
         
         public Highlight GetHighlight()
         {
@@ -38,14 +23,25 @@ namespace HighlightSystem
             else
             {
                 var highlight = Instantiate(prefab, transform);
+                highlight.gameObject.SetActive(true);
+                _activeHighlights.Add(highlight);
                 return highlight;
             }
         }
         
-        public void ReturnHighlight(Highlight highlight)
+        private void ReturnHighlight(Highlight highlight)
         {
             highlight.gameObject.SetActive(false);
             _highlightPool.Enqueue(highlight);
+        }
+
+        public void ClearAllHighlights()
+        {
+            foreach (var highlight in _activeHighlights)
+            {
+                highlight.StopAnimation();
+                ReturnHighlight(highlight);
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using GameManagement;
 using UnityEngine;
 
 namespace HighlightSystem
@@ -19,24 +18,20 @@ namespace HighlightSystem
         public void PlayAnimation()
         {
             StopAnimation();
+            gameObject.SetActive(true);
             _sequence = DOTween.Sequence();
             foreach (var highLightEffect in highLightEffects)
             {
-                highLightEffect.color = Color.white;
+                highLightEffect.color = Color.green;
                 var fadeTween = highLightEffect.DOFade(0.7f, 0.15f).SetLoops(999, LoopType.Yoyo);
                 _sequence.Join(fadeTween);
             }
         }
 
-        public void ReturnToPool()
-        {
-            StopAnimation();
-            ManagerType.Highlight.GetManager<HighlightManager>().ReturnHighlight(this);
-        }
-
-        private void StopAnimation()
+        public void StopAnimation()
         {
             _sequence?.Kill();
+            gameObject.SetActive(false);
         }
     }
 }

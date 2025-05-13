@@ -14,36 +14,33 @@ namespace GridSystem.Shapes
         private Shape _shape;
         private GridManager GridManager => ManagerType.Grid.GetManager<GridManager>();
         private readonly int _lineLayer = 10;
-        private Dictionary<Stick, Line> _linesToPreview = new();
+        private readonly Dictionary<Stick, Line> _linesToPreview = new();
+        private readonly Dictionary<Stick, Line> _lastPreviewedLines = new();
+        private bool _isPreviewActive = false;
+        
         public void Initialize(Shape shape)
         {
             _shape = shape;
         }
+        
         public bool CanPlaced()
         {
             var canBePlaced = _shape.Sticks.All(IsValidPlacement);
             if (canBePlaced)
             {
                 PreviewArea();
-                HighlightArea();
             }
             else
             {
                 ResetPreviewArea();
-                ResetHighlightArea();
             }
 
             return canBePlaced;
         }
-
-        private void ResetHighlightArea()
-        {
-            
-        }
-
+        
         private void HighlightArea()
         {
-            
+            GridManager.GridSquareChecker.SimulateHighlight();
         }
 
         public void Place()
@@ -59,6 +56,16 @@ namespace GridSystem.Shapes
         
         private void PreviewArea()
         {
+            if (_isPreviewActive && ArePreviewLinesEqual()) return;
+            
+            if (_isPreviewActive)
+            {
+                GridManager.GridGenerator.ResetPreview();
+                _linesToPreview.Clear();
+            }
+            
+            Debug.Log("Previewing area - configuration changed");
+            
             foreach (var stick in _shape.Sticks)
             {
                 if (TryGetLine(stick.transform.position, out var line) && !_linesToPreview.ContainsKey(stick))
@@ -67,12 +74,48 @@ namespace GridSystem.Shapes
                     line.Preview(stick.GetColor());
                 }
             }
+            HighlightArea();
+            UpdateLastPreviewedLines();
+            
+            _isPreviewActive = true;
+        }
+        
+        private bool ArePreviewLinesEqual()
+        {
+            if (_linesToPreview.Count != _lastPreviewedLines.Count) return false;
+            
+            foreach (var kvp in _linesToPreview)
+            {
+                Stick stick = kvp.Key;
+                Line line = kvp.Value;
+                
+                if (!_lastPreviewedLines.TryGetValue(stick, out var lastLine))
+                    return false;
+                
+                if (lastLine != line)
+                    return false;
+            }
+            
+            return true;
+        }
+        
+        private void UpdateLastPreviewedLines()
+        {
+            _lastPreviewedLines.Clear();
+            
+            foreach (var kvp in _linesToPreview)
+            {
+                _lastPreviewedLines.Add(kvp.Key, kvp.Value);
+            }
         }
 
         private void ResetPreviewArea()
         {
             GridManager.GridGenerator.ResetPreview();
+            GridManager.GridSquareChecker.ResetHighlight();
             _linesToPreview.Clear();
+            _lastPreviewedLines.Clear();
+            _isPreviewActive = false;
         }
 
         private bool IsValidPlacement(Stick stick)
