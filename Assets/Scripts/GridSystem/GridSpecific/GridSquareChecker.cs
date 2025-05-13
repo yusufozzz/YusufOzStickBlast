@@ -3,6 +3,7 @@ using GameManagement;
 using GridSystem.Lines;
 using GridSystem.Squares;
 using HighlightSystem;
+using PoolSystem;
 using UnityEngine;
 
 namespace GridSystem.GridSpecific
@@ -17,7 +18,7 @@ namespace GridSystem.GridSpecific
         private readonly HashSet<int> _completedOrPreviewedVerticalSquareGroup = new ();
         private readonly HashSet<Square> _squaresToClear = new ();
         private readonly HashSet<HighlightData> _highLightDataSet = new ();
-        private HighlightManager HighlightManager => ManagerType.Highlight.GetManager<HighlightManager>();
+        private PoolManager PoolManager => ManagerType.Pool.GetManager<PoolManager>();
 
         public void Initialize(Square[,] squares)
         {
@@ -62,7 +63,7 @@ namespace GridSystem.GridSpecific
         public void ResetHighlight()
         {
             Debug.Log("Resetting highlight");
-            HighlightManager.ClearAllHighlights();
+            PoolManager.HighlightPool.ClearAllHighlights();
         }
 
         public void ProcessMatching()
@@ -187,7 +188,7 @@ namespace GridSystem.GridSpecific
         {
             foreach (var hds in _highLightDataSet)
             {
-                var highlight = HighlightManager.GetHighlight();
+                var highlight = PoolManager.HighlightPool.GetObject();
                 highlight.SetPositionAndRotation(hds.position, hds.isVertical);
                 highlight.PlayAnimation();
             }

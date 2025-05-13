@@ -10,6 +10,6 @@
         Grid,
         Deck,
         Particle,
-        Highlight
+        Pool
     }
 }
