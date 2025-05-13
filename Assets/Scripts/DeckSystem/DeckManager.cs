@@ -19,16 +19,10 @@ namespace DeckSystem
         [SerializeField]
         private DeckShapeSpawner deckShapeSpawner;
 
-        public readonly List<Shape> ActiveShapes = new();
-
+        private readonly List<Shape> _activeShapes = new();
         private bool _gameEnded;
         private Coroutine _checkGameLostRoutine;
         private GridManager GridManager => ManagerType.Grid.GetManager<GridManager>();
-
-        public override void SetUp()
-        {
-            base.SetUp();
-        }
 
         public override void SubscribeEvents()
         {
@@ -53,7 +47,7 @@ namespace DeckSystem
             {
                 var shape = shapes[i];
                 shape.Initialize(deckSlots[i]);
-                ActiveShapes.Add(shape);
+                _activeShapes.Add(shape);
             }
 
             CheckIfGameIsLost();
@@ -61,30 +55,28 @@ namespace DeckSystem
 
         private void ClearDeck()
         {
-            foreach (var shape in ActiveShapes)
+            foreach (var shape in _activeShapes)
             {
                 if (shape != null)
                     Destroy(shape.gameObject);
             }
 
-            ActiveShapes.Clear();
+            _activeShapes.Clear();
         }
 
         private void OnShapePlaced(Shape shape)
         {
             if (_gameEnded) return;
 
-            ActiveShapes.Remove(shape);
+            _activeShapes.Remove(shape);
             shape.ClearSticks();
             Destroy(shape.gameObject);
-            
-            GridManager.GridSquareChecker.UpdateSquareStates();
-            
+
             GridManager.GridSquareChecker.ProcessMatching();
 
-            if (ActiveShapes.Count == 0)
+            if (_activeShapes.Count == 0)
                 GenerateDeck();
-            
+
             CheckIfGameIsLost();
         }
 
@@ -99,7 +91,7 @@ namespace DeckSystem
         private IEnumerator CheckGameLostRoutine()
         {
             yield return new WaitForEndOfFrame();
-            bool canPlace = ActiveShapes.Any(shape =>
+            bool canPlace = _activeShapes.Any(shape =>
                 GridManager.GridPlacement.CanShapeBePlacedUsingStickPoints(shape.StickPoints));
 
             if (!canPlace)

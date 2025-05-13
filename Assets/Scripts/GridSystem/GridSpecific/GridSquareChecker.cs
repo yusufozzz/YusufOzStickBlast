@@ -42,14 +42,6 @@ namespace GridSystem.GridSpecific
             _squaresToClear.Clear();
             _highLightDataSet.Clear();
         }
-        
-        public void UpdateSquareStates()
-        {
-            foreach (var square in _squares)
-            {
-                square.TryComplete();
-            }
-        }
 
         public void SimulateHighlight()
         {
@@ -63,9 +55,18 @@ namespace GridSystem.GridSpecific
         {
             PoolManager.HighlightPool.ClearAllHighlights();
         }
+        
+        private void UpdateSquareStates()
+        {
+            foreach (var square in _squares)
+            {
+                square.TryComplete();
+            }
+        }
 
         public void ProcessMatching()
         {
+            UpdateSquareStates();
             if (_squaresToClear.Count > 0)
             {
                 ClearMatchedSquares();
