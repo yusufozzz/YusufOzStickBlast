@@ -139,8 +139,7 @@ namespace GridSystem.Shapes.Editor
 
             var structure = new ShapeStructure(stickPoints, GridSize, GridSize);
             GameObject shapeObj = (GameObject)PrefabUtility.InstantiatePrefab(_shapePrefab);
-            string timestamp = DateTime.Now.ToString("HHmmss");
-            string finalShapeName = string.IsNullOrEmpty(_shapeName) ? $"Shape_{timestamp}" : $"{_shapeName}_{timestamp}";
+            string finalShapeName = string.IsNullOrEmpty(_shapeName) ? $"Shape" : $"{_shapeName}";
             shapeObj.name = finalShapeName;
             shapeObj.transform.position = Vector3.zero;
 
@@ -235,6 +234,11 @@ namespace GridSystem.Shapes.Editor
             }
 
             shape.SetStickPoints(stickPointsList);
+
+            foreach (var stick in _spawnedSticks)
+            {
+                DestroyImmediate(stick.gameObject);
+            }
         }
 
         private void CenterPivot(Shape shape, Vector3 pivotOffset)

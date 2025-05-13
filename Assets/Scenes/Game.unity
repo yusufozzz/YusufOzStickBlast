@@ -892,8 +892,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 963194227}
-  gridBackground: {fileID: 503056666}
-  deckBackground: {fileID: 332838854}
   referenceWidth: 1080
   referenceHeight: 1920
   referenceOrthographicSize: 12
@@ -978,7 +976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapes:
-  - {fileID: 53739823668467241, guid: ae2d29525b95c014c8b48ad9aaec3654, type: 3}
+  - {fileID: 3520079756553527984, guid: 90ed4e81d487bea4485ae44cf852bd05, type: 3}
 --- !u!1 &1281207239
 GameObject:
   m_ObjectHideFlags: 0
