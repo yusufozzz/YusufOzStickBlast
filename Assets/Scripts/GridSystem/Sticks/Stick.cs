@@ -1,4 +1,5 @@
 ﻿using GridSystem.Lines;
+using GridSystem.Shapes;
 using UnityEngine;
 
 namespace GridSystem.Sticks
@@ -12,7 +13,6 @@ namespace GridSystem.Sticks
         {
             transform.SetParent(line.transform);
             transform.position = line.transform.position;
-            SetColor(GetColor());
         }
         
         public Color GetColor()
@@ -28,6 +28,13 @@ namespace GridSystem.Sticks
         public void SetSortingOrder(int order)
         {
             spriteRenderer.sortingOrder = order;
+        }
+
+        public void Initialize(StickPoints stickPoint, Transform parent)
+        {
+            transform.SetParent(parent);
+            transform.localPosition = stickPoint.Position;
+            transform.localRotation = Quaternion.Euler(0, 0, stickPoint.IsVertical ? 0 : 90);
         }
     }
 }

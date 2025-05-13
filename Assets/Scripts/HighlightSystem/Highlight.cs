@@ -22,7 +22,7 @@ namespace HighlightSystem
             _sequence = DOTween.Sequence();
             foreach (var highLightEffect in highLightEffects)
             {
-                highLightEffect.color = Color.green;
+                highLightEffect.color = Color.white;
                 var fadeTween = highLightEffect.DOFade(0.7f, 0.15f).SetLoops(999, LoopType.Yoyo);
                 _sequence.Join(fadeTween);
             }

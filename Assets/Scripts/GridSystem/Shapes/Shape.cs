@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameManagement;
 using GridSystem.Sticks;
+using PoolSystem;
 using UnityEngine;
 
 namespace GridSystem.Shapes
@@ -23,12 +25,23 @@ namespace GridSystem.Shapes
 
         public void Initialize(Transform deckSlot)
         {
+            CreateSticks();
             transform.SetPositionAndRotation(deckSlot.position, deckSlot.rotation);
             shapeMovement.Initialize(deckSlot, this);
             shapePlacementValidator.Initialize(this);
-            Sticks = GetComponentsInChildren<Stick>().ToList();
         }
-        
+
+        private void CreateSticks()
+        {
+            var poolManager = ManagerType.Pool.GetManager<PoolManager>();
+            foreach (var stickPoint in stickPoints)
+            {
+                var stick = poolManager.StickPool.GetObject();
+                stick.Initialize(stickPoint,transform);
+                Sticks.Add(stick);
+            }
+        }
+
         public void SetStickPoints(List<StickPoints> points)
         {
             stickPoints = points;

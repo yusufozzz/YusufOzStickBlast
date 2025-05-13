@@ -64,8 +64,6 @@ namespace GridSystem.Shapes
                 _linesToPreview.Clear();
             }
             
-            Debug.Log("Previewing area - configuration changed");
-            
             foreach (var stick in _shape.Sticks)
             {
                 if (TryGetLine(stick.transform.position, out var line) && !_linesToPreview.ContainsKey(stick))

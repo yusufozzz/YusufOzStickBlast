@@ -4,6 +4,7 @@ using GridSystem.Dots;
 using GridSystem.Squares;
 using GridSystem.Sticks;
 using GridSystem.Visuals;
+using PoolSystem;
 using UnityEngine;
 
 namespace GridSystem.Lines
@@ -65,7 +66,8 @@ namespace GridSystem.Lines
             if (_memberOfCompletedSquares.Count == 0)
             {
                 if (_stick == null) return;
-                Destroy(_stick.gameObject);
+                var poolManager = ManagerType.Pool.GetManager<PoolManager>();
+                poolManager.StickPool.ReturnObject(_stick);
                 _stick = null;
                 foreach (var dot in _dots)
                 {

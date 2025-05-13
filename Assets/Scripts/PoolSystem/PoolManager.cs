@@ -8,6 +8,7 @@ namespace PoolSystem
         [field: SerializeField]
         public HighlightPool HighlightPool { get; private set; }
 
-        
+        [field: SerializeField]
+        public StickPool StickPool { get; private set; }
     }
 }

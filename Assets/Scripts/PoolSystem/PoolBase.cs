@@ -19,18 +19,18 @@ namespace PoolSystem
             return pooledObject;
         }
         
-        public virtual void OnGetObject(T pooledObject)
+        protected virtual void OnGetObject(T pooledObject)
         {
             pooledObject.gameObject.SetActive(true);
         }
         
-        private void ReturnObject(T pooledObject)
+        public void ReturnObject(T pooledObject)
         {
             OnReturnObject(pooledObject);
             _tPool.Enqueue(pooledObject);
         }
         
-        public virtual void OnReturnObject(T pooledObject)
+        protected virtual void OnReturnObject(T pooledObject)
         {
             pooledObject.gameObject.SetActive(false);
         }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using GameManagement;
-using GridSystem.Lines;
 using GridSystem.Squares;
 using HighlightSystem;
 using PoolSystem;
@@ -53,7 +52,6 @@ namespace GridSystem.GridSpecific
 
         public void SimulateHighlight()
         {
-            Debug.Log("Simulating highlight");
             ResetTrackedLines();
             CheckHorizontalMatch();
             CheckVerticalMatch();
@@ -62,7 +60,6 @@ namespace GridSystem.GridSpecific
 
         public void ResetHighlight()
         {
-            Debug.Log("Resetting highlight");
             PoolManager.HighlightPool.ClearAllHighlights();
         }
 
@@ -120,7 +117,6 @@ namespace GridSystem.GridSpecific
 
         private void MarkHorizontalMatchCompleted(int y, List<Square> lineSquares)
         {
-            Debug.Log($"Marking horizontal match completed at y: {y}");
             _completedOrPreviewedHorizontalSquareGroup.Add(y);
             var middleSquare = _squares[2,y];
             _highLightDataSet.Add(new HighlightData(middleSquare.transform.position, false));
@@ -174,7 +170,6 @@ namespace GridSystem.GridSpecific
 
         private void MarkVerticalMatchCompleted(int x, List<Square> lineSquares)
         {
-            Debug.Log($"Marking vertical match completed at x: {x}");
             _completedOrPreviewedVerticalSquareGroup.Add(x);
             var middleSquare = _squares[x, 2];
             _highLightDataSet.Add(new HighlightData(middleSquare.transform.position, true));
