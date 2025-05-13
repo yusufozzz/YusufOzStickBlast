@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameManagement;
+using UnityEngine;
 
 namespace AudioSystem
 {
@@ -15,5 +16,14 @@ namespace AudioSystem
         ShapePlaceFailed,
         GridMatch,
         GameLose,
+    }
+    
+    public static class SoundTypeExtensions
+    {
+        public static void PlaySfx(this SoundType soundType)
+        {
+            AudioManager audioManager = ManagerType.Audio.GetManager<AudioManager>();
+            audioManager.PlaySound(soundType);
+        }
     }
 }

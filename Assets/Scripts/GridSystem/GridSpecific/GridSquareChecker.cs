@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AudioSystem;
 using GameManagement;
 using GridSystem.Squares;
 using HighlightSystem;
@@ -193,11 +194,14 @@ namespace GridSystem.GridSpecific
         {
             foreach (var square in _squaresToClear)
             {
-                if (square == null)
-                    continue;
-
                 square.Clear();
             }
+            PlaySfx();
+        }
+
+        private void PlaySfx()
+        {
+            SoundType.GridMatch.PlaySfx();
         }
     }
 }

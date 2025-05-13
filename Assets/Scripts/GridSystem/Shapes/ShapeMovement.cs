@@ -66,8 +66,14 @@ namespace GridSystem.Shapes
 
         private void PlaySfx(bool isValid)
         {
-            var audioManager = ManagerType.Audio.GetManager<AudioManager>();
-            audioManager.PlaySound(isValid ? SoundType.ShapePlaced : SoundType.ShapePlaceFailed);
+            if (isValid)
+            {
+                SoundType.ShapePlaced.PlaySfx();
+            }
+            else
+            {
+                SoundType.ShapePlaceFailed.PlaySfx();
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AudioSystem;
 using GameManagement;
 using GridSystem;
 using GridSystem.GridSpecific;
@@ -103,10 +104,21 @@ namespace DeckSystem
 
             if (!canPlace)
             {
-                Debug.Log("No available moves - Game Over");
-                _gameEnded = true;
-                GameEvents.OnGameOver?.Invoke();
+                SetGameOver();
             }
+        }
+
+        private void SetGameOver()
+        {
+            Debug.Log("No available moves - Game Over");
+            _gameEnded = true;
+            GameEvents.OnGameOver?.Invoke();
+            PlaySfx();
+        }
+
+        private void PlaySfx()
+        {
+            SoundType.GameLose.PlaySfx();
         }
     }
 }
