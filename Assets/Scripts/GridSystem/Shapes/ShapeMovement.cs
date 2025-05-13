@@ -1,4 +1,5 @@
 ﻿using AudioSystem;
+using GameManagement;
 using UnityEngine;
 
 namespace GridSystem.Shapes
@@ -21,14 +22,20 @@ namespace GridSystem.Shapes
         {
             if (_shape.IsPlaced) return;
             UpdatePosition();
+            UpdateScale(true);
             CheckPlacement();
+        }
+
+        private void UpdateScale(bool isDragging)
+        {
+            _shape.ShapeVisual.SetScale(isDragging);
         }
 
         private void UpdatePosition()
         {
             Vector3 mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
-            mousePosition.y += 2;
+            mousePosition.y += GeneralSettings.Instance.ShapeSettings.DragYOffset;
             transform.position = mousePosition;
         }
 
@@ -40,6 +47,7 @@ namespace GridSystem.Shapes
         private void OnMouseUp()
         {
             if (_shape.IsPlaced) return;
+            UpdateScale(false);
             HandlePlacement();
         }
 

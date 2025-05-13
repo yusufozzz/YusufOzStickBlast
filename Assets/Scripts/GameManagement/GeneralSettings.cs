@@ -28,15 +28,18 @@ namespace GameManagement
     public class ShapeSettings
     {
         [field: SerializeField]
-        public float DragScale { get; private set; } = 1.25f;
+        public float DragScale { get; private set; } = 1.1f;
 
         [field: SerializeField]
-        public float DragAnimationDuration { get; private set; } = 0.15f;
+        public float ScaleAnimationDuration { get; private set; } = 0.15f;
 
         [field: SerializeField]
         public int DragSortingOrder { get; private set; } = 100;
 
         [field: SerializeField]
         public int PlaceSortingOrder { get; private set; } = 40;
+
+        [field: SerializeField]
+        public int DragYOffset { get; private set; } = 2;
     }
 }

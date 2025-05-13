@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using GameManagement;
 using GridSystem.Sticks;
 using PoolSystem;
@@ -9,8 +8,12 @@ namespace GridSystem.Shapes
 {
     public class Shape : MonoBehaviour
     {
+        [field: SerializeField]
+        public ShapeVisual ShapeVisual { get; private set; }
+
         [SerializeField]
         private List<StickPoints> stickPoints = new List<StickPoints>();
+
         public IReadOnlyList<StickPoints> StickPoints => stickPoints;
 
         public List<Stick> Sticks { get; private set; } = new List<Stick>();
@@ -26,6 +29,7 @@ namespace GridSystem.Shapes
         public void Initialize(Transform deckSlot)
         {
             CreateSticks();
+            ShapeVisual.Initialize(this);
             transform.SetPositionAndRotation(deckSlot.position, deckSlot.rotation);
             shapeMovement.Initialize(deckSlot, this);
             shapePlacementValidator.Initialize(this);
@@ -37,7 +41,7 @@ namespace GridSystem.Shapes
             foreach (var stickPoint in stickPoints)
             {
                 var stick = poolManager.StickPool.GetObject();
-                stick.Initialize(stickPoint,transform);
+                stick.Initialize(stickPoint, transform);
                 Sticks.Add(stick);
             }
         }
@@ -64,7 +68,7 @@ namespace GridSystem.Shapes
             IsPlaced = true;
             ShapeEvents.OnShapePlaced?.Invoke(this);
         }
-        
+
         public void ReturnDeck(Transform deckTransform)
         {
             transform.SetParent(deckTransform);

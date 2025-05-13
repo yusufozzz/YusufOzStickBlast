@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using GameManagement;
+using UnityEngine;
 
 namespace GridSystem.Shapes
 {
@@ -8,18 +10,28 @@ namespace GridSystem.Shapes
         public Color DefaultColor { get; private set; } = Color.white;
 
         private Shape _shape;
+        private Tween _scaleTween;
+        private ShapeSettings _shapeSettings;
+        private bool _isDragging;
 
         public void Initialize(Shape shape)
         {
             _shape = shape;
-            SetColor(DefaultColor);
+            _shapeSettings = GeneralSettings.Instance.ShapeSettings;
         }
-
-        public void SetColor(Color color)
+        
+        public void SetScale(bool isDragging)
         {
-            foreach (var stick in _shape.Sticks)
+            if (_isDragging == isDragging) return;
+            _isDragging = isDragging;
+            if (!_isDragging)
             {
-                stick.SetColor(color);
+                transform.localScale = Vector3.one;
+            }
+            else
+            {
+                _scaleTween?.Kill();
+                _scaleTween = transform.DOScale(_shapeSettings.DragScale, _shapeSettings.ScaleAnimationDuration).SetEase(Ease.Linear);
             }
         }
     }

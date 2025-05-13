@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3155e3a5f01e403fa56d461887f69c39, type: 3}
   m_Name: GeneralSettings
   m_EditorClassIdentifier: 
+  <ShapeSettings>k__BackingField:
+    <DragScale>k__BackingField: 1.05
+    <ScaleAnimationDuration>k__BackingField: 0.15
+    <DragSortingOrder>k__BackingField: 100
+    <PlaceSortingOrder>k__BackingField: 40
+    <DragYOffset>k__BackingField: 2
   <DefaultColorList>k__BackingField:
     dotColor: {r: 0.2509804, g: 0.21960784, b: 0.59607846, a: 1}
     lineColor: {r: 0.2509804, g: 0.21960784, b: 0.59607846, a: 1}
+  <SquareAnimationDuration>k__BackingField: 0.25

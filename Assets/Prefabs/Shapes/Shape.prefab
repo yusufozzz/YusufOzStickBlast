@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7093446092648708066}
   - component: {fileID: 8727527256374077221}
   - component: {fileID: 7055682285350302153}
+  - component: {fileID: 7684441378785375953}
   m_Layer: 0
   m_Name: Shape
   m_TagString: Untagged
@@ -92,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f064aabdd92d941a22c325c235af8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ShapeVisual>k__BackingField: {fileID: 7684441378785375953}
   stickPoints: []
   shapeMovement: {fileID: 8727527256374077221}
   shapePlacementValidator: {fileID: 7055682285350302153}
@@ -119,3 +121,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0cc4ab0899b6e44910fc21120e90f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7684441378785375953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715741822452102343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330e1560e5584da385763fe813340ce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DefaultColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
