@@ -33,7 +33,7 @@ namespace GridSystem.Shapes.ShapeComponents
         {
             Vector3 mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
-            mousePosition.y += GeneralSettings.Instance.ShapeSettings.DragYOffset;
+            mousePosition.y += ShapeSettings.DragYOffset;
             transform.position = mousePosition;
         }
 
