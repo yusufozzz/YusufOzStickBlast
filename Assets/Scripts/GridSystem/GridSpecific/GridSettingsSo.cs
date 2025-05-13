@@ -1,5 +1,6 @@
 ﻿using GridSystem.Dots;
 using GridSystem.Lines;
+using GridSystem.Squares;
 using UnityEngine;
 
 namespace GridSystem.GridSpecific

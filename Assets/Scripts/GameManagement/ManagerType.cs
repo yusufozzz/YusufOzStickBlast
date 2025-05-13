@@ -9,6 +9,7 @@
         Level,
         Grid,
         Deck,
-        Particle
+        Particle,
+        Highlight
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GridSystem.Squares;
 using UnityEngine;
 
 namespace GridSystem.GridSpecific

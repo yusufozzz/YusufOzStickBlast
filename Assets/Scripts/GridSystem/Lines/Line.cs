@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameManagement;
 using GridSystem.Dots;
+using GridSystem.Squares;
 using GridSystem.Sticks;
 using GridSystem.Visuals;
 using UnityEngine;

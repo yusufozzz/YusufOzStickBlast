@@ -6,7 +6,7 @@ using GridSystem.Lines;
 using ParticleSystem;
 using UnityEngine;
 
-namespace GridSystem
+namespace GridSystem.Squares
 {
     public class Square : MonoBehaviour
     {
