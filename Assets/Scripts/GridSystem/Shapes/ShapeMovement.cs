@@ -45,10 +45,8 @@ namespace GridSystem.Shapes
         private void OnMouseUp()
         {
             if (_shape.IsPlaced) return;
-            SetSortingOrder(40);
             HandlePlacement();
         }
-
 
         private void HandlePlacement()
         {

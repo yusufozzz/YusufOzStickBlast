@@ -46,6 +46,7 @@ namespace GridSystem.Shapes
 
         public void Place()
         {
+            SetSortingOrder(40);
             shapePlacementValidator.Place();
             IsPlaced = true;
             ShapeEvents.OnShapePlaced?.Invoke(this);
