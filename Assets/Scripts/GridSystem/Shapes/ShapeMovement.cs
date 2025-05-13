@@ -2,12 +2,12 @@
 
 namespace GridSystem.Shapes
 {
-    public class ShapeMovement: MonoBehaviour
+    public class ShapeMovement : MonoBehaviour
     {
-        private  Transform _deckTransform;
+        private Transform _deckTransform;
         private Camera _mainCamera;
         private Shape _shape;
-        
+
         public void Initialize(Transform deckTransform, Shape shape)
         {
             _deckTransform = deckTransform;
@@ -23,7 +23,7 @@ namespace GridSystem.Shapes
             CheckPlacement();
             SetSortingOrder(100);
         }
-        
+
         private void UpdatePosition()
         {
             Vector3 mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -49,7 +49,6 @@ namespace GridSystem.Shapes
             HandlePlacement();
         }
 
- 
 
         private void HandlePlacement()
         {

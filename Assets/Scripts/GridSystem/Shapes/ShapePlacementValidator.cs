@@ -14,7 +14,7 @@ namespace GridSystem.Shapes
         private Shape _shape;
         private GridManager GridManager => ManagerType.Grid.GetManager<GridManager>();
         private readonly int _lineLayer = 10;
-        private HashSet<Line> _linesToPreview = new ();
+        private Dictionary<Stick, Line> _linesToPreview = new();
         public void Initialize(Shape shape)
         {
             _shape = shape;
@@ -46,35 +46,24 @@ namespace GridSystem.Shapes
             
         }
 
-        public void TryPlace()
+        public void Place()
         {
-            if (!CanPlaced()) return;
-
-            var sticks = _shape.Sticks;
-            foreach (var stick in sticks)
+            foreach (var stick in _linesToPreview.Keys)
             {
-                if (TryGetLine(stick.transform.position, out var line))
-                {
-                    PlaceStick(stick, line);
-                }
+                stick.Place(_linesToPreview[stick]);
+                _linesToPreview[stick].SetOccupied(stick);
             }
 
             ResetPreviewArea();
-        }
-
-        private void PlaceStick(Stick stick, Line line)
-        {
-            stick.Place(line);
-            line.SetOccupied(stick);
         }
         
         private void PreviewArea()
         {
             foreach (var stick in _shape.Sticks)
             {
-                if (TryGetLine(stick.transform.position, out var line) && !_linesToPreview.Contains(line))
+                if (TryGetLine(stick.transform.position, out var line) && !_linesToPreview.ContainsKey(stick))
                 {
-                    _linesToPreview.Add(line);
+                    _linesToPreview.Add(stick, line);
                     line.Preview(stick.GetColor());
                 }
             }

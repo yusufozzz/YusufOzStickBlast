@@ -46,8 +46,8 @@ namespace GridSystem.Shapes
 
         public void Place()
         {
+            shapePlacementValidator.Place();
             IsPlaced = true;
-            shapePlacementValidator.TryPlace();
             ShapeEvents.OnShapePlaced?.Invoke(this);
         }
         
