@@ -49,7 +49,7 @@ namespace GridSystem.Shapes
 
         public void ClearSticks()
         {
-            
+            Sticks.Clear();
         }
 
         public bool CanPlaced()
