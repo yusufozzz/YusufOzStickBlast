@@ -17,7 +17,7 @@ MonoBehaviour:
     <ScaleAnimationDuration>k__BackingField: 0.15
     <DragSortingOrder>k__BackingField: 100
     <PlaceSortingOrder>k__BackingField: 40
-    <DragYOffset>k__BackingField: 2
+    <DragYOffset>k__BackingField: 3
   <DefaultColorList>k__BackingField:
     dotColor: {r: 0.2509804, g: 0.21960784, b: 0.59607846, a: 1}
     lineColor: {r: 0.2509804, g: 0.21960784, b: 0.59607846, a: 1}
