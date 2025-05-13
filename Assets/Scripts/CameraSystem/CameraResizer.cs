@@ -14,7 +14,7 @@ namespace CameraSystem
         private float referenceHeight = 1920f;
        
         [SerializeField]
-        private float referenceOrthographicSize = 11f;
+        private float referenceOrthographicSize = 12f;
 
         private void Awake()
         {
