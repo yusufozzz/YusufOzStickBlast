@@ -977,6 +977,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shapes:
   - {fileID: 3520079756553527984, guid: 90ed4e81d487bea4485ae44cf852bd05, type: 3}
+  - {fileID: 6092247820261753675, guid: 28ef75c1db0a0734288effc8e082c728, type: 3}
+  - {fileID: 3602819776451127151, guid: cbabca1325b42fd4692d122d41edfbef, type: 3}
+  - {fileID: 4449047891674236366, guid: 7b05989d7b1f6044289321b2b1834b0f, type: 3}
+  - {fileID: 442256638662856511, guid: e41c048ef38deb6498a688aeceddc3ad, type: 3}
+  - {fileID: 3366046699664866826, guid: d5e8a96622c4dee45b36a4534ab59001, type: 3}
+  - {fileID: 6245442334668913852, guid: 4d206cde991e45a4686f823eaae5c337, type: 3}
+  - {fileID: 2812503255401985073, guid: 112bcf0a28a5dc14faf0bbc252e1be83, type: 3}
+  - {fileID: 161050123529203375, guid: b7a9c7b5e583ecd46948bcd99c5f5e4c, type: 3}
+  - {fileID: 5659338751377913050, guid: 2aa6a387f52d14c4794b1c5ed318f94b, type: 3}
+  - {fileID: 5273334110350832511, guid: 7bb6dfccae45af4418fcc95109a84c80, type: 3}
 --- !u!1 &1281207239
 GameObject:
   m_ObjectHideFlags: 0
