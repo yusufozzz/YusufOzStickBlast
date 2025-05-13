@@ -2,25 +2,23 @@
 using GameManagement;
 using UnityEngine;
 
-namespace GridSystem.Shapes
+namespace GridSystem.Shapes.ShapeComponents
 {
-    public class ShapeMovement : MonoBehaviour
+    public class ShapeMovement : ShapeComponent
     {
         private Transform _deckTransform;
         private Camera _mainCamera;
-        private Shape _shape;
 
-        public void Initialize(Transform deckTransform, Shape shape)
+        public void SetDeckTransform(Transform deckTransform)
         {
             _deckTransform = deckTransform;
             transform.SetParent(null);
             _mainCamera = Camera.main;
-            _shape = shape;
         }
 
         private void OnMouseDrag()
         {
-            if (_shape.IsPlaced) return;
+            if (Shape.IsPlaced) return;
             UpdatePosition();
             UpdateScale(true);
             CheckPlacement();
@@ -28,7 +26,7 @@ namespace GridSystem.Shapes
 
         private void UpdateScale(bool isDragging)
         {
-            _shape.ShapeVisual.SetScale(isDragging);
+            Shape.ShapeVisual.SetScale(isDragging);
         }
 
         private void UpdatePosition()
@@ -41,27 +39,28 @@ namespace GridSystem.Shapes
 
         private void CheckPlacement()
         {
-            _shape.CanPlaced();
+            Shape.CanPlaced();
         }
 
         private void OnMouseUp()
         {
-            if (_shape.IsPlaced) return;
+            if (Shape.IsPlaced) return;
             UpdateScale(false);
             HandlePlacement();
         }
 
         private void HandlePlacement()
         {
-            var canBePlaced = _shape.CanPlaced();
+            var canBePlaced = Shape.CanPlaced();
             if (canBePlaced)
             {
-                _shape.Place();
+                Shape.Place();
             }
             else
             {
-                _shape.ReturnDeck(_deckTransform);
+                Shape.ReturnDeck(_deckTransform);
             }
+
             PlaySfx(canBePlaced);
         }
 

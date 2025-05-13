@@ -7,25 +7,19 @@ using GridSystem.Sticks;
 using UnityEngine;
 using Utilities;
 
-namespace GridSystem.Shapes
+namespace GridSystem.Shapes.ShapeComponents
 {
-    public class ShapePlacementValidator: MonoBehaviour
+    public class ShapePlacementValidator : ShapeComponent
     {
-        private Shape _shape;
         private GridManager GridManager => ManagerType.Grid.GetManager<GridManager>();
         private readonly int _lineLayer = 10;
         private readonly Dictionary<Stick, Line> _linesToPreview = new();
         private readonly Dictionary<Stick, Line> _lastPreviewedLines = new();
         private bool _isPreviewActive = false;
-        
-        public void Initialize(Shape shape)
-        {
-            _shape = shape;
-        }
-        
+
         public bool CanPlaced()
         {
-            var canBePlaced = _shape.Sticks.All(IsValidPlacement);
+            var canBePlaced = Shape.Sticks.All(IsValidPlacement);
             if (canBePlaced)
             {
                 PreviewArea();
@@ -37,7 +31,7 @@ namespace GridSystem.Shapes
 
             return canBePlaced;
         }
-        
+
         private void HighlightArea()
         {
             GridManager.GridSquareChecker.SimulateHighlight();
@@ -53,18 +47,18 @@ namespace GridSystem.Shapes
 
             ResetPreviewArea();
         }
-        
+
         private void PreviewArea()
         {
             if (_isPreviewActive && ArePreviewLinesEqual()) return;
-            
+
             if (_isPreviewActive)
             {
                 GridManager.GridGenerator.ResetPreview();
                 _linesToPreview.Clear();
             }
-            
-            foreach (var stick in _shape.Sticks)
+
+            foreach (var stick in Shape.Sticks)
             {
                 if (TryGetLine(stick.transform.position, out var line) && !_linesToPreview.ContainsKey(stick))
                 {
@@ -72,35 +66,36 @@ namespace GridSystem.Shapes
                     line.Preview(stick.GetColor());
                 }
             }
+
             HighlightArea();
             UpdateLastPreviewedLines();
-            
+
             _isPreviewActive = true;
         }
-        
+
         private bool ArePreviewLinesEqual()
         {
             if (_linesToPreview.Count != _lastPreviewedLines.Count) return false;
-            
+
             foreach (var kvp in _linesToPreview)
             {
                 Stick stick = kvp.Key;
                 Line line = kvp.Value;
-                
+
                 if (!_lastPreviewedLines.TryGetValue(stick, out var lastLine))
                     return false;
-                
+
                 if (lastLine != line)
                     return false;
             }
-            
+
             return true;
         }
-        
+
         private void UpdateLastPreviewedLines()
         {
             _lastPreviewedLines.Clear();
-            
+
             foreach (var kvp in _linesToPreview)
             {
                 _lastPreviewedLines.Add(kvp.Key, kvp.Value);
