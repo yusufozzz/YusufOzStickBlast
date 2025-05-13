@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameManagement;
+using LevelSystem;
 using UnityEngine;
 
 namespace ParticleSystem
@@ -10,6 +11,7 @@ namespace ParticleSystem
         private List<Particle> particles;
         
         private readonly Dictionary<ParticleType, Queue<Particle>> _particlePool = new ();
+        private LevelManager LevelManager => ManagerType.Level.GetManager<LevelManager>();
         
         public override void SetUp()
         {
@@ -51,6 +53,7 @@ namespace ParticleSystem
             
             particle.transform.position = position;
             particle.gameObject.SetActive(true);
+            particle.SetColor(LevelManager.ActiveShapeColor);
             particle.Init(() => ReturnToPool(particle));
         }
         

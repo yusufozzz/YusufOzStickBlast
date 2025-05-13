@@ -260,6 +260,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 4
+  colorList:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0.6868738, b: 0, a: 1}
+  - {r: 0, g: 0.9789009, b: 1, a: 1}
 --- !u!4 &162364483
 Transform:
   m_ObjectHideFlags: 0

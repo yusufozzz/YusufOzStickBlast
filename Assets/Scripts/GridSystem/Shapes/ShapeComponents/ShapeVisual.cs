@@ -5,9 +5,6 @@ namespace GridSystem.Shapes.ShapeComponents
 {
     public class ShapeVisual : ShapeComponent
     {
-        [field: SerializeField]
-        public Color DefaultColor { get; private set; } = Color.white;
-
         private Tween _scaleTween;
         private bool _isDragging;
 
@@ -30,6 +27,11 @@ namespace GridSystem.Shapes.ShapeComponents
         public void SetSortingOrder(int newOrder)
         {
             Shape.Sticks.ForEach(stick => stick.SetSortingOrder(newOrder));
+        }
+
+        public void SetColor(Color activeColor)
+        {
+            Shape.Sticks.ForEach(stick => stick.SetColor(activeColor));
         }
     }
 }

@@ -29,13 +29,14 @@ namespace GridSystem.Shapes
 
         public bool IsPlaced { get; private set; }
 
-        public void Initialize(Transform deckSlot)
+        public void Initialize(Transform deckSlot, Color activeColor)
         {
             _shapeSettings = GeneralSettings.Instance.ShapeSettings;
             shapePlacementValidator.Initialize(this, _shapeSettings);
             ShapeVisual.Initialize(this, _shapeSettings);
             shapeMovement.Initialize(this, _shapeSettings);
             CreateSticks();
+            ShapeVisual.SetColor(activeColor);
             shapeMovement.SetDeckSlot(deckSlot);
         }
 

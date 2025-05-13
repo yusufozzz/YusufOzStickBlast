@@ -20,11 +20,20 @@ namespace GridSystem.GridSpecific
         private readonly HashSet<HighlightData> _highLightDataSet = new ();
         private PoolManager PoolManager => ManagerType.Pool.GetManager<PoolManager>();
 
-        public void Initialize(Square[,] squares)
+        public void Initialize(Square[,] squares, Color color)
         {
             _squares = squares;
             DetermineLineSize();
             ResetTrackedLines();
+            SetSquareColors(color);
+        }
+
+        private void SetSquareColors(Color color)
+        {
+            foreach (var square in _squares)
+            {
+                square.SetColor(color);
+            }
         }
 
         private void DetermineLineSize()

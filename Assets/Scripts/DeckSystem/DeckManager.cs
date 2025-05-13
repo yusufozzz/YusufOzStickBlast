@@ -6,6 +6,7 @@ using GameManagement;
 using GridSystem;
 using GridSystem.GridSpecific;
 using GridSystem.Shapes;
+using LevelSystem;
 using UnityEngine;
 using Utilities;
 
@@ -23,6 +24,7 @@ namespace DeckSystem
         private bool _gameEnded;
         private Coroutine _checkGameLostRoutine;
         private GridManager GridManager => ManagerType.Grid.GetManager<GridManager>();
+        private LevelManager LevelManager => ManagerType.Level.GetManager<LevelManager>();
 
         public override void SubscribeEvents()
         {
@@ -47,7 +49,7 @@ namespace DeckSystem
             {
                 var shape = shapes[i];
                 var deckSlot = deckSlots[i];
-                shape.Initialize(deckSlot);
+                shape.Initialize(deckSlot, LevelManager.ActiveShapeColor);
                 shape.SendToDeck(deckSlot);
                 _activeShapes.Add(shape);
             }

@@ -22,6 +22,7 @@ namespace GridSystem.Sticks
 
         public void SetColor(Color color)
         {
+            Debug.Log($"Set color {color}");
             spriteRenderer.color = color;
         }
 

@@ -23,7 +23,7 @@ namespace GridSystem.Squares
             _lines.AddRange(lines);
         }
 
-        public bool IsCompleted()
+        private bool IsCompleted()
         {
             return _lines.All(line => line.IsOccupied);
         }
@@ -50,6 +50,11 @@ namespace GridSystem.Squares
             }
 
             Animate();
+        }
+
+        public void SetColor(Color color)
+        {
+            spriteRenderer.color = color;
         }
 
         private void Animate()

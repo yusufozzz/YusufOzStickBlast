@@ -24,5 +24,11 @@ namespace ParticleSystem
         {
             _onDisable?.Invoke();
         }
+        
+        public void SetColor(Color color)
+        {
+            var main = system.main;
+            main.startColor = color;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DeckSystem;
 using GameManagement;
+using LevelSystem;
 using UnityEngine;
 
 namespace GridSystem.GridSpecific
@@ -16,6 +17,7 @@ namespace GridSystem.GridSpecific
         public GridSquareChecker GridSquareChecker { get; private set; }
 
         private DeckManager DeckManager => ManagerType.Deck.GetManager<DeckManager>();
+        private LevelManager LevelManager => ManagerType.Level.GetManager<LevelManager>();
 
         [field: SerializeField]
         public GridPlacement GridPlacement { get; private set; }
@@ -25,7 +27,7 @@ namespace GridSystem.GridSpecific
             base.SetUp();
             GridGenerator.Generate(GridSettings);
             GridPlacement.Initialize(GridGenerator.HorizontalLines, GridGenerator.VerticalLines);
-            GridSquareChecker.Initialize(GridGenerator.Squares);
+            GridSquareChecker.Initialize(GridGenerator.Squares, LevelManager.ActiveShapeColor);
             DeckManager.GenerateDeck();
         }
     }
