@@ -152,6 +152,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
+  <GameData>k__BackingField:
+    <HighScore>k__BackingField: 0
+    <Coins>k__BackingField: 0
+    <Level>k__BackingField: 0
+    <LastPlayDate>k__BackingField: 
+    <SoundEnabled>k__BackingField: 1
 --- !u!4 &13209325
 Transform:
   m_ObjectHideFlags: 0
@@ -206,6 +212,7 @@ Transform:
   - {fileID: 1519856903}
   - {fileID: 1160367091}
   - {fileID: 1649242094}
+  - {fileID: 478956653}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &117082099
@@ -230,6 +237,7 @@ MonoBehaviour:
   - {fileID: 1160367092}
   - {fileID: 1649242095}
   - {fileID: 1519856905}
+  - {fileID: 478956654}
 --- !u!1 &162364481
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,6 +486,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &478956652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 478956653}
+  - component: {fileID: 478956654}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &478956653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478956652}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 117082098}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &478956654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478956652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ba21ad05644c9096831cc6b1cac7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 9
+  scoreText: {fileID: 2880308981160279562}
+  highScoreText: {fileID: 2880308981160279561}
+  scoreTweenDuration: 0.2
+  scoreEase: 9
 --- !u!1 &503056665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,6 +1448,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad63dc370fbb0194fba357cb1726ef67, type: 3}
+--- !u!114 &2880308981160279561 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3902896364477906636, guid: ad63dc370fbb0194fba357cb1726ef67, type: 3}
+  m_PrefabInstance: {fileID: 2880308981160279560}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2880308981160279562 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6574641677751280715, guid: ad63dc370fbb0194fba357cb1726ef67, type: 3}
+  m_PrefabInstance: {fileID: 2880308981160279560}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

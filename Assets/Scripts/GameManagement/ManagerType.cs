@@ -10,6 +10,7 @@
         Grid,
         Deck,
         Particle,
-        Pool
+        Pool,
+        Score
     }
 }

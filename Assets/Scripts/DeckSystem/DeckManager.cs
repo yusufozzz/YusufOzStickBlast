@@ -110,6 +110,7 @@ namespace DeckSystem
             _gameEnded = true;
             GameEvents.OnGameOver?.Invoke();
             PlaySfx();
+            gameObject.SetActive(false);
         }
 
         private void PlaySfx()

@@ -4,6 +4,7 @@ using GameManagement;
 using GridSystem.Squares;
 using HighlightSystem;
 using PoolSystem;
+using ScoreSystem;
 using UnityEngine;
 
 namespace GridSystem.GridSpecific
@@ -60,6 +61,12 @@ namespace GridSystem.GridSpecific
             PlayHighlight();
         }
 
+        private void AddScore()
+        {
+            var scoreManager = ManagerType.Score.GetManager<ScoreManager>();
+            scoreManager.AddScore(_highLightDataSet.Count * 10);
+        }
+
         public void ResetHighlight()
         {
             PoolManager.HighlightPool.ClearAllHighlights();
@@ -80,6 +87,7 @@ namespace GridSystem.GridSpecific
             {
                 ClearMatchedSquares();
             }
+            AddScore();
             ResetHighlight();
             ResetTrackedLines();
         }
