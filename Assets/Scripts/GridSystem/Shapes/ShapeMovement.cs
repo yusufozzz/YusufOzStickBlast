@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using AudioSystem;
+using GameManagement;
+using UnityEngine;
 
 namespace GridSystem.Shapes
 {
@@ -57,9 +59,15 @@ namespace GridSystem.Shapes
             }
             else
             {
-                _shape.transform.SetParent(_deckTransform);
-                _shape.transform.localPosition = Vector3.zero;
+                _shape.ReturnDeck(_deckTransform);
             }
+            PlaySfx(canBePlaced);
+        }
+
+        private void PlaySfx(bool isValid)
+        {
+            var audioManager = ManagerType.Audio.GetManager<AudioManager>();
+            audioManager.PlaySound(isValid ? SoundType.ShapePlaced : SoundType.ShapePlaceFailed);
         }
     }
 }

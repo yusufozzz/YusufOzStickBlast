@@ -65,6 +65,14 @@ namespace GridSystem.Shapes
             ShapeEvents.OnShapePlaced?.Invoke(this);
         }
         
+        public void ReturnDeck(Transform deckTransform)
+        {
+            transform.SetParent(deckTransform);
+            transform.localPosition = Vector3.zero;
+            IsPlaced = false;
+            SetSortingOrder(100);
+        }
+
         public void SetSortingOrder(int order)
         {
             Sticks.ForEach(stick => stick.SetSortingOrder(order));
