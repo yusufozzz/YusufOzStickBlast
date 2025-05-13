@@ -59,7 +59,7 @@ namespace GridSystem.Shapes
 
         public void Place()
         {
-            SetSortingOrder(40);
+            SetSortingOrder(GeneralSettings.Instance.ShapeSettings.PlaceSortingOrder);
             shapePlacementValidator.Place();
             IsPlaced = true;
             ShapeEvents.OnShapePlaced?.Invoke(this);
@@ -70,7 +70,7 @@ namespace GridSystem.Shapes
             transform.SetParent(deckTransform);
             transform.localPosition = Vector3.zero;
             IsPlaced = false;
-            SetSortingOrder(100);
+            SetSortingOrder(GeneralSettings.Instance.ShapeSettings.DragSortingOrder);
         }
 
         public void SetSortingOrder(int order)

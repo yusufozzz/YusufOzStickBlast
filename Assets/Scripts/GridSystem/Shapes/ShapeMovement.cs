@@ -1,5 +1,4 @@
 ﻿using AudioSystem;
-using GameManagement;
 using UnityEngine;
 
 namespace GridSystem.Shapes
@@ -23,7 +22,6 @@ namespace GridSystem.Shapes
             if (_shape.IsPlaced) return;
             UpdatePosition();
             CheckPlacement();
-            SetSortingOrder(100);
         }
 
         private void UpdatePosition()
@@ -32,11 +30,6 @@ namespace GridSystem.Shapes
             mousePosition.z = 0;
             mousePosition.y += 2;
             transform.position = mousePosition;
-        }
-
-        private void SetSortingOrder(int i)
-        {
-            _shape.SetSortingOrder(i);
         }
 
         private void CheckPlacement()
