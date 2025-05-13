@@ -14,6 +14,7 @@ namespace GridSystem.Shapes
         private Shape _shape;
         private GridManager GridManager => ManagerType.Grid.GetManager<GridManager>();
         private readonly int _lineLayer = 10;
+        private HashSet<Line> _linesToPreview = new ();
         public void Initialize(Shape shape)
         {
             _shape = shape;
@@ -24,18 +25,30 @@ namespace GridSystem.Shapes
             if (canBePlaced)
             {
                 PreviewArea();
+                HighlightArea();
             }
             else
             {
                 ResetPreviewArea();
+                ResetHighlightArea();
             }
 
             return canBePlaced;
         }
-        
-        public bool TryPlace()
+
+        private void ResetHighlightArea()
         {
-            if (!CanPlaced()) return false;
+            
+        }
+
+        private void HighlightArea()
+        {
+            
+        }
+
+        public void TryPlace()
+        {
+            if (!CanPlaced()) return;
 
             var sticks = _shape.Sticks;
             foreach (var stick in sticks)
@@ -47,7 +60,6 @@ namespace GridSystem.Shapes
             }
 
             ResetPreviewArea();
-            return true;
         }
 
         private void PlaceStick(Stick stick, Line line)
@@ -58,12 +70,11 @@ namespace GridSystem.Shapes
         
         private void PreviewArea()
         {
-            var linesToPreview = new HashSet<Line>();
             foreach (var stick in _shape.Sticks)
             {
-                if (TryGetLine(stick.transform.position, out var line))
+                if (TryGetLine(stick.transform.position, out var line) && !_linesToPreview.Contains(line))
                 {
-                    linesToPreview.Add(line);
+                    _linesToPreview.Add(line);
                     line.Preview(stick.GetColor());
                 }
             }
@@ -72,6 +83,7 @@ namespace GridSystem.Shapes
         private void ResetPreviewArea()
         {
             GridManager.GridGenerator.ResetPreview();
+            _linesToPreview.Clear();
         }
 
         private bool IsValidPlacement(Stick stick)

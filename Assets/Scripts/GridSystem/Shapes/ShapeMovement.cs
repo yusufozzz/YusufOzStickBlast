@@ -23,6 +23,14 @@ namespace GridSystem.Shapes
             CheckPlacement();
             SetSortingOrder(100);
         }
+        
+        private void UpdatePosition()
+        {
+            Vector3 mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            mousePosition.y += 2;
+            transform.position = mousePosition;
+        }
 
         private void SetSortingOrder(int i)
         {
@@ -41,13 +49,7 @@ namespace GridSystem.Shapes
             HandlePlacement();
         }
 
-        private void UpdatePosition()
-        {
-            Vector3 mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0;
-            mousePosition.y += 2;
-            transform.position = mousePosition;
-        }
+ 
 
         private void HandlePlacement()
         {
