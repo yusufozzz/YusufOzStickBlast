@@ -10,9 +10,9 @@ namespace HighlightSystem
 
         private Sequence _sequence;
 
-        public void SetPosition(Vector3 position)
+        public void SetPositionAndRotation(Vector3 position, bool isVertical)
         {
-            transform.position = position;
+            transform.SetPositionAndRotation(position, isVertical ? Quaternion.identity : Quaternion.Euler(0, 0, 90));
         }
 
         public void PlayAnimation()

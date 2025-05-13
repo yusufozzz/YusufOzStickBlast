@@ -13,9 +13,10 @@ namespace GridSystem.GridSpecific
         private int lineSize;
 
         private Square[,] _squares;
-        private readonly HashSet<int> _completedOrPreviewedHorizontalSquareGroup = new HashSet<int>();
-        private readonly HashSet<int> _completedOrPreviewedVerticalSquareGroup = new HashSet<int>();
-        private readonly HashSet<Square> _squaresToClear = new HashSet<Square>();
+        private readonly HashSet<int> _completedOrPreviewedHorizontalSquareGroup = new ();
+        private readonly HashSet<int> _completedOrPreviewedVerticalSquareGroup = new ();
+        private readonly HashSet<Square> _squaresToClear = new ();
+        private readonly HashSet<HighlightData> _highLightDataSet = new ();
         private HighlightManager HighlightManager => ManagerType.Highlight.GetManager<HighlightManager>();
 
         public void Initialize(Square[,] squares)
@@ -38,6 +39,7 @@ namespace GridSystem.GridSpecific
             _completedOrPreviewedHorizontalSquareGroup.Clear();
             _completedOrPreviewedVerticalSquareGroup.Clear();
             _squaresToClear.Clear();
+            _highLightDataSet.Clear();
         }
         
         public void UpdateSquareStates()
@@ -55,17 +57,6 @@ namespace GridSystem.GridSpecific
             CheckHorizontalMatch();
             CheckVerticalMatch();
             PlayHighlight();
-        }
-
-        private void PlayHighlight()
-        {
-            foreach (var square in _squaresToClear)
-            {
-                var squarePosition = square.transform.position;
-                var highlight = HighlightManager.GetHighlight();
-                highlight.SetPosition(squarePosition);
-                highlight.PlayAnimation();
-            }
         }
 
         public void ResetHighlight()
@@ -105,13 +96,6 @@ namespace GridSystem.GridSpecific
 
             for (int x = 0; x < width; x++)
             {
-                if (_squares[x, y] == null)
-                {
-                    consecutiveCompleted = 0;
-                    lineSquares.Clear();
-                    continue;
-                }
-
                 bool isComplete = _squares[x, y].IsCompletedOrPreviewed();
 
                 if (isComplete)
@@ -137,7 +121,8 @@ namespace GridSystem.GridSpecific
         {
             Debug.Log($"Marking horizontal match completed at y: {y}");
             _completedOrPreviewedHorizontalSquareGroup.Add(y);
-
+            var middleSquare = _squares[2,y];
+            _highLightDataSet.Add(new HighlightData(middleSquare.transform.position, false));
             foreach (var square in lineSquares)
             {
                 _squaresToClear.Add(square);
@@ -165,13 +150,6 @@ namespace GridSystem.GridSpecific
 
             for (int y = 0; y < height; y++)
             {
-                if (_squares[x, y] == null)
-                {
-                    consecutiveCompleted = 0;
-                    lineSquares.Clear();
-                    continue;
-                }
-
                 bool isComplete = _squares[x, y].IsCompletedOrPreviewed();
 
                 if (isComplete)
@@ -197,10 +175,21 @@ namespace GridSystem.GridSpecific
         {
             Debug.Log($"Marking vertical match completed at x: {x}");
             _completedOrPreviewedVerticalSquareGroup.Add(x);
-
+            var middleSquare = _squares[x, 2];
+            _highLightDataSet.Add(new HighlightData(middleSquare.transform.position, true));
             foreach (var square in lineSquares)
             {
                 _squaresToClear.Add(square);
+            }
+        }
+
+        private void PlayHighlight()
+        {
+            foreach (var hds in _highLightDataSet)
+            {
+                var highlight = HighlightManager.GetHighlight();
+                highlight.SetPositionAndRotation(hds.position, hds.isVertical);
+                highlight.PlayAnimation();
             }
         }
 

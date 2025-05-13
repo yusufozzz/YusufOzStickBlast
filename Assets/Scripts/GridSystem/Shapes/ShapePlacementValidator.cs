@@ -111,6 +111,7 @@ namespace GridSystem.Shapes
 
         private void ResetPreviewArea()
         {
+            if (!_isPreviewActive) return;
             GridManager.GridGenerator.ResetPreview();
             GridManager.GridSquareChecker.ResetHighlight();
             _linesToPreview.Clear();

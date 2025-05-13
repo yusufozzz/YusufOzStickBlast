@@ -14,19 +14,10 @@ namespace HighlightSystem
         
         public Highlight GetHighlight()
         {
-            if (_highlightPool.Count > 0)
-            {
-                var highlight = _highlightPool.Dequeue();
-                highlight.gameObject.SetActive(true);
-                return highlight;
-            }
-            else
-            {
-                var highlight = Instantiate(prefab, transform);
-                highlight.gameObject.SetActive(true);
-                _activeHighlights.Add(highlight);
-                return highlight;
-            }
+            var highlight = _highlightPool.Count > 0 ? _highlightPool.Dequeue() : Instantiate(prefab, transform);
+            _activeHighlights.Add(highlight);
+            highlight.gameObject.SetActive(true);
+            return highlight;
         }
         
         private void ReturnHighlight(Highlight highlight)
@@ -42,6 +33,7 @@ namespace HighlightSystem
                 highlight.StopAnimation();
                 ReturnHighlight(highlight);
             }
+            _activeHighlights.Clear();
         }
     }
 }
