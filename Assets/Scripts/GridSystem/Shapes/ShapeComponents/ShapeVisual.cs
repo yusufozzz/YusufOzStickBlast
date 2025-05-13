@@ -26,5 +26,10 @@ namespace GridSystem.Shapes.ShapeComponents
                     .SetEase(Ease.Linear);
             }
         }
+
+        public void SetSortingOrder(int newOrder)
+        {
+            Shape.Sticks.ForEach(stick => stick.SetSortingOrder(newOrder));
+        }
     }
 }

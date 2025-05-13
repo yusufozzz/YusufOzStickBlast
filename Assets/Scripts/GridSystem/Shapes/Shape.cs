@@ -32,12 +32,11 @@ namespace GridSystem.Shapes
         public void Initialize(Transform deckSlot)
         {
             _shapeSettings = GeneralSettings.Instance.ShapeSettings;
-            CreateSticks();
-            transform.SetPositionAndRotation(deckSlot.position, deckSlot.rotation);
             shapePlacementValidator.Initialize(this, _shapeSettings);
             ShapeVisual.Initialize(this, _shapeSettings);
             shapeMovement.Initialize(this, _shapeSettings);
-            shapeMovement.SetDeckTransform(deckSlot);
+            CreateSticks();
+            shapeMovement.SetDeckSlot(deckSlot);
         }
 
         private void CreateSticks()
@@ -49,7 +48,7 @@ namespace GridSystem.Shapes
                 stick.Initialize(stickPoint, transform);
                 Sticks.Add(stick);
             }
-            SetSortingOrder(_shapeSettings.DragSortingOrder);
+            ShapeVisual.SetSortingOrder(_shapeSettings.DragSortingOrder);
         }
 
         public void SetStickPoints(List<StickPoints> points)
@@ -69,23 +68,18 @@ namespace GridSystem.Shapes
 
         public void Place()
         {
-            SetSortingOrder(_shapeSettings.PlaceSortingOrder);
+            ShapeVisual.SetSortingOrder(_shapeSettings.PlaceSortingOrder);
             shapePlacementValidator.Place();
             IsPlaced = true;
             ShapeEvents.OnShapePlaced?.Invoke(this);
         }
 
-        public void ReturnDeck(Transform deckTransform)
+        public void SendToDeck(Transform deckTransform)
         {
             transform.SetParent(deckTransform);
             transform.localPosition = Vector3.zero;
             IsPlaced = false;
-            SetSortingOrder(_shapeSettings.DragSortingOrder);
-        }
-
-        private void SetSortingOrder(int order)
-        {
-            Sticks.ForEach(stick => stick.SetSortingOrder(order));
+            ShapeVisual.SetSortingOrder(_shapeSettings.DragSortingOrder);
         }
     }
 }

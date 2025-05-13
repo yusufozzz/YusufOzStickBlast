@@ -9,10 +9,9 @@ namespace GridSystem.Shapes.ShapeComponents
         private Transform _deckTransform;
         private Camera _mainCamera;
 
-        public void SetDeckTransform(Transform deckTransform)
+        public override void Initialize(Shape shape, ShapeSettings shapeSettings)
         {
-            _deckTransform = deckTransform;
-            transform.SetParent(null);
+            base.Initialize(shape, shapeSettings);
             _mainCamera = Camera.main;
         }
 
@@ -58,7 +57,7 @@ namespace GridSystem.Shapes.ShapeComponents
             }
             else
             {
-                Shape.ReturnDeck(_deckTransform);
+                Shape.SendToDeck(_deckTransform);
             }
 
             PlaySfx(canBePlaced);
@@ -74,6 +73,11 @@ namespace GridSystem.Shapes.ShapeComponents
             {
                 SoundType.ShapePlaceFailed.PlaySfx();
             }
+        }
+
+        public void SetDeckSlot(Transform deckSlot)
+        {
+            _deckTransform = deckSlot;
         }
     }
 }

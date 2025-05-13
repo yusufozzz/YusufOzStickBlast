@@ -46,7 +46,9 @@ namespace DeckSystem
             for (int i = 0; i < deckSlots.Length; i++)
             {
                 var shape = shapes[i];
-                shape.Initialize(deckSlots[i]);
+                var deckSlot = deckSlots[i];
+                shape.Initialize(deckSlot);
+                shape.SendToDeck(deckSlot);
                 _activeShapes.Add(shape);
             }
 
